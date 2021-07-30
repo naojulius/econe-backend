@@ -53,6 +53,8 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['api/nao/demo'] = 'nao/demo';
+$route['api/nao/test/demo'] = 'test/naotest/demo';
 
 $route['api/user/demo'] = 'api_test/demo';
 $route['api/user/login'] = 'api_test/login';
