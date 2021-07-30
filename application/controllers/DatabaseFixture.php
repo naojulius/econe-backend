@@ -4,9 +4,9 @@ header("Access-Control-Allow-Methods: POST, GET");
 header("Access-Control-Allow-Headers: Authorization, Content-Type");
 require_once APPPATH . 'libraries/API_Controller.php';
 include APPPATH.'/third_party/faker/autoload.php';
-include APPPATH.'enumerations\StateEnum.php';
-include APPPATH.'enumerations\ContractEnum.php';
-include APPPATH.'enumerations\AnnonceTypeEnum.php';  
+include APPPATH.'enumerations/StateEnum.php';
+include APPPATH.'enumerations/ContractEnum.php';
+include APPPATH.'enumerations/AnnonceTypeEnum.php';  
 
 class DatabaseFixture extends API_Controller
 {
