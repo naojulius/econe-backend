@@ -142,8 +142,8 @@ function configure_fixture(){
     'groupe'=>'CATEGORY',
     'value'=>"exemple"
 );
-   $this->PickListModel->savePickList($pick);
-   $this->PickListModel->savePickList($pick2);
+   $this->PicklistModel->savePickList($pick);
+   $this->PicklistModel->savePickList($pick2);
 }
 
 public function configure_users_table(){
@@ -390,7 +390,7 @@ function fake_user(){
         $rand_state = $this->State->getRandom();
 
         $rand_user =  $this->UserModel->getRandomUser();   
-        $rand_picklist = $this->PickListModel->getRandom();
+        $rand_picklist = $this->PicklistModel->getRandom();
         $job = array(
             'poste' =>  $faker->jobTitle,                
             'society' => $faker->company,
@@ -491,7 +491,7 @@ public function fake_annonce(){
 
         $rand_state = $this->State->getRandom();
         $rand_user =  $this->UserModel->getRandomUser();   
-        $rand_picklist = $this->PickListModel->getRandom();
+        $rand_picklist = $this->PicklistModel->getRandom();
         $annonce = array(
             'title' =>  $faker->jobTitle,                
             'marque' => $faker->company,
@@ -514,7 +514,7 @@ public function fake_vente(){
 
         $rand_state = $this->State->getRandom();
         $rand_user =  $this->UserModel->getRandomUser();   
-        $rand_picklist = $this->PickListModel->getRandom();
+        $rand_picklist = $this->PicklistModel->getRandom();
         $vente = array(
             'title' =>  $faker->jobTitle,                
             'marque' => $faker->company,
@@ -699,7 +699,7 @@ public function fake_vente(){
 
         $rand_state = $this->State->getRandom();
         $rand_user =  $this->UserModel->getRandomUser();   
-        $rand_picklist = $this->PickListModel->getRandom();
+        $rand_picklist = $this->PicklistModel->getRandom();
         for ($i=0; $i < 100; $i++) { 
            $rencontre = array(
             'description' => $faker->realText($maxNbChars = 250, $indexSize = 4) ,
@@ -766,7 +766,7 @@ public function fake_vente(){
         $faker = Faker\Factory::create();
         $rand_state = $this->State->getRandom();
         $rand_user =  $this->UserModel->getRandomUser();   
-        $rand_picklist = $this->PickListModel->getRandom();
+        $rand_picklist = $this->PicklistModel->getRandom();
         for ($i=0; $i < 10; $i++) { 
            $fls = array(
             'title'=>$faker->bothify('?????-#####'),

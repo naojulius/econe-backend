@@ -21,7 +21,7 @@ class Picklist extends API_Controller
 			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			  }
 			}
-			$this->PickListModel->savePickList($data);
+			$this->PicklistModel->savePickList($data);
 			$this->api_return(['status' => false,"data" =>"crée avec succès.",],200);exit;
 		} catch (Exception $e) {
 				$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
@@ -39,7 +39,7 @@ class Picklist extends API_Controller
 			if (!$data) {
 			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			}
-			$picklist = $this->PickListModel->getById($data);
+			$picklist = $this->PicklistModel->getById($data);
 			if(!$picklist){
 				$this->api_return(['status' => false,"data" =>"picklist introuvable.",],404);exit;
 			}
@@ -60,7 +60,7 @@ class Picklist extends API_Controller
 			if (!$data) {
 			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			}
-			$this->PickListModel->deleteById($data);
+			$this->PicklistModel->deleteById($data);
 			$this->api_return(['status' => false,"data" =>"supprimé avec succès",],200);exit;
 			
 		} catch (Exception $e) {
@@ -78,7 +78,7 @@ class Picklist extends API_Controller
 			if (!$data) {
 			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			}
-			$picklist = $this->PickListModel->getByGroupe($data);
+			$picklist = $this->PicklistModel->getByGroupe($data);
 			if(!$picklist){
 				$this->api_return(['status' => false,"data" =>"picklist introuvable.",],404);exit;
 			}

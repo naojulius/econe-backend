@@ -146,7 +146,7 @@ $autoload['model'] = array(
 	"Follower/AnnonceFollower",
 	"Follower/RencontreFollower", 
 	"Follower/VenteFollower", 
-	"Picklist/PickListModel",
+	"Picklist/PicklistModel",
 	"Files/Files",
 	"Annonce/AnnonceModel",
 	"Annonce/AnnonceImage",

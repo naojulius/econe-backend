@@ -76,10 +76,10 @@ $route['api/job/number'] = "Job/job/JobByLimit";
 /*
     picklists
 */
-$route['api/picklist/new'] = 'PickList/Picklist/new';
-$route['api/picklist/get'] = 'PickList/Picklist/getById';
-$route['api/picklist/delete'] = 'PickList/Picklist/deleteById';
-$route['api/picklist/get/groupe'] = 'PickList/Picklist/getByGroupe';
+$route['api/picklist/new'] = 'Picklist/Picklist/new';
+$route['api/picklist/get'] = 'Picklist/Picklist/getById';
+$route['api/picklist/delete'] = 'Picklist/Picklist/deleteById';
+$route['api/picklist/get/groupe'] = 'Picklist/Picklist/getByGroupe';
 /*
 annonces
 */
