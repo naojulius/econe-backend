@@ -34,7 +34,7 @@ class PickListModel extends CI_Model
 	}
 	public function getByGroupe($groupe){
 		$condition = array(
-			'picklist_id'=> $groupe,
+			'groupe'=> $groupe,
 			'is_deleted'=>false
 		);
 		$this->db->where($condition)->select('groupe, value, picklist_id')->from($this->table);

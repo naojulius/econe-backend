@@ -68,6 +68,24 @@ class Picklist extends API_Controller
 		}
 	}
 	public function getByGroupe(){
-		
+		$this->CorsOrigin->Allow();
+		$this->_apiConfig([
+			'methods' => ['GET'],
+			 'requireAuthorization' => $this->requireAuthorization,
+		]);
+		$data = $_GET["groupe"];
+		try {
+			if (!$data) {
+			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
+			}
+			$picklist = $this->PickListModel->getByGroupe($data);
+			if(!$picklist){
+				$this->api_return(['status' => false,"data" =>"picklist introuvable.",],404);exit;
+			}
+			$this->api_return(['status' => false,"data" =>$picklist,],200);exit;
+			
+		} catch (Exception $e) {
+		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
+		}
 	}
 }
