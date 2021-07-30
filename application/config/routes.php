@@ -61,8 +61,8 @@ $route['api/user/login'] = 'api_test/login';
 $route['api/user/view'] = 'api_test/view';
 
 
-$route['api/fixture/config']  = 'fixtures/DatabaseFixture/configure';
-$route['api/job/demo'] = 'fixtures/DatabaseFixture/getJobDemo';
+$route['api/fixture/config']  = 'databaseFixture/configure';
+$route['api/job/demo'] = 'databaseFixture/getJobDemo';
 
 
 
