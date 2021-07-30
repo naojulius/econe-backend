@@ -48,7 +48,7 @@ class ImageModel extends CI_Model
 			$job->owner = $this->UserModel->getUserById($job->user_id);
 			$job->state = $this->State->getStatebyId($job->state_id);
 			$job->follower_number = $this->JobFollower->getFollowersNumberByJobId($job->job_id);
-			$job->category = $this->PickListModel->getById($job->category_id);
+			$job->category = $this->PicklistModel->getById($job->category_id);
 			unset($job->user_id);
 			unset($job->state_id);
 			unset($job->category_id);
@@ -83,7 +83,7 @@ class ImageModel extends CI_Model
 	// 		$job->owner = $this->UserModel->getUserById($job->user_id);
 	// 		$job->state = $this->State->getStatebyId($job->state_id);
 	// 		$job->follower_number = $this->JobFollower->getFollowersNumberByJobId($job->job_id);
-	// 		$job->category = $this->PickListModel->getById($job->category_id);
+	// 		$job->category = $this->PicklistModel->getById($job->category_id);
 	// 		unset($job->user_id);
 	// 		unset($job->state_id);
 	// 		unset($job->category_id);

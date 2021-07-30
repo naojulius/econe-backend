@@ -22,7 +22,7 @@ class VenteModel extends CI_Model
 		}
 		$vente[0]['owner'] = $this->UserModel->getUserById($vente[0]['user_id']);
 		$vente[0]['state'] = $this->State->getStatebyId($vente[0]['state_id']);
-		$vente[0]['category'] = $this->PickListModel->getById($vente[0]['category_id']);
+		$vente[0]['category'] = $this->PicklistModel->getById($vente[0]['category_id']);
 		$vente[0]['images'] = $this->ImageModel->getVenteImageByVenteId($vente[0]['vente_id']); 
 		unset($vente[0]['user_id']);
 		unset($vente[0]['state_id']);
@@ -41,7 +41,7 @@ class VenteModel extends CI_Model
 			$vente->owner = $this->UserModel->getUserById($vente->user_id);
 			$vente->state = $this->State->getStatebyId($vente->state_id);
 			$vente->follower_number = $this->VenteFollower->getFollowersNumberByVenteId($vente->vente_id); 
-			$vente->category = $this->PickListModel->getById($vente->category_id);
+			$vente->category = $this->PicklistModel->getById($vente->category_id);
 			unset($vente->user_id);
 			unset($vente->state_id);
 			unset($vente->category_id);
@@ -85,7 +85,7 @@ class VenteModel extends CI_Model
 			$vente->owner = $this->UserModel->getUserById($vente->user_id);
 			$vente->state = $this->State->getStatebyId($vente->state_id);
 			$vente->follower_number = $this->VenteFollower->getFollowersNumberByVenteId($vente->vente_id);
-			$vente->category = $this->PickListModel->getById($vente->category_id);
+			$vente->category = $this->PicklistModel->getById($vente->category_id);
 			$vente->images = $this->ImageModel->getVenteImageByVenteId($vente->vente_id);
 			unset($vente->user_id);
 			unset($vente->state_id);

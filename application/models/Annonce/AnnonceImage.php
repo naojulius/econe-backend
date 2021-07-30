@@ -21,7 +21,7 @@ class AnnonceImage extends CI_Model
 	// 	}
 	// 	$annonce[0]['owner'] = $this->UserModel->getUserById($annonce[0]['user_id']);
 	// 	$annonce[0]['state'] = $this->State->getStatebyId($annonce[0]['state_id']);
-	// 	$annonce[0]['category'] = $this->PickListModel->getById($annonce[0]['category_id']);
+	// 	$annonce[0]['category'] = $this->PicklistModel->getById($annonce[0]['category_id']);
 	// 	unset($annonce[0]['user_id']);
 	// 	unset($annonce[0]['state_id']);
 	// 	unset($annonce[0]['category_id']);
@@ -39,7 +39,7 @@ class AnnonceImage extends CI_Model
 	// 		$annonce->owner = $this->UserModel->getUserById($annonce->user_id);
 	// 		$annonce->state = $this->State->getStatebyId($annonce->state_id);
 	// 		$annonce->follower_number = $this->AnnonceFollower->getFollowersNumberByAnnonceId($annonce->annonce_id);
-	// 		$annonce->category = $this->PickListModel->getById($annonce->category_id);
+	// 		$annonce->category = $this->PicklistModel->getById($annonce->category_id);
 	// 		unset($annonce->user_id);
 	// 		unset($annonce->state_id);
 	// 		unset($annonce->category_id);
@@ -72,7 +72,7 @@ class AnnonceImage extends CI_Model
 	// 		$annonce->owner = $this->UserModel->getUserById($annonce->user_id);
 	// 		$annonce->state = $this->State->getStatebyId($annonce->state_id);
 	// 		$annonce->follower_number = $this->AnnonceFollower->getFollowersNumberByAnnonceId($annonce->annonce_id);
-	// 		$annonce->category = $this->PickListModel->getById($annonce->category_id);
+	// 		$annonce->category = $this->PicklistModel->getById($annonce->category_id);
 	// 		unset($annonce->user_id);
 	// 		unset($annonce->state_id);
 	// 		unset($annonce->category_id);

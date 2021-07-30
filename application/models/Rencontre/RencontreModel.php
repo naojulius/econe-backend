@@ -22,7 +22,7 @@ class RencontreModel extends CI_Model
 		}
 		$rencontre[0]['owner'] = $this->UserModel->getUserById($rencontre[0]['user_id']);
 		$rencontre[0]['state'] = $this->State->getStatebyId($rencontre[0]['state_id']);
-		$rencontre[0]['category'] = $this->PickListModel->getById($rencontre[0]['category_id']);
+		$rencontre[0]['category'] = $this->PicklistModel->getById($rencontre[0]['category_id']);
 		unset($rencontre[0]['user_id']);
 		unset($rencontre[0]['state_id']);
 		unset($rencontre[0]['category_id']);
@@ -40,7 +40,7 @@ class RencontreModel extends CI_Model
 			$rencontre->owner = $this->UserModel->getUserById($rencontre->user_id);
 			$rencontre->state = $this->State->getStatebyId($rencontre->state_id);
 			$rencontre->follower_number = $this->RencontreFollower->getFollowersNumberByRencontreId($rencontre->rencontre_id);
-			$rencontre->category = $this->PickListModel->getById($rencontre->category_id);
+			$rencontre->category = $this->PicklistModel->getById($rencontre->category_id);
 			unset($rencontre->user_id);
 			unset($rencontre->state_id);
 			unset($rencontre->category_id);
@@ -77,7 +77,7 @@ class RencontreModel extends CI_Model
 	// 		$job->owner = $this->UserModel->getUserById($job->user_id);
 	// 		$job->state = $this->State->getStatebyId($job->state_id);
 	// 		$job->follower_number = $this->JobFollower->getFollowersNumberByJobId($job->job_id);
-	// 		$job->category = $this->PickListModel->getById($job->category_id);
+	// 		$job->category = $this->PicklistModel->getById($job->category_id);
 	// 		unset($job->user_id);
 	// 		unset($job->state_id);
 	// 		unset($job->category_id);
@@ -94,7 +94,7 @@ class RencontreModel extends CI_Model
 			$rencontre->owner = $this->UserModel->getUserById($rencontre->user_id);
 			$rencontre->state = $this->State->getStatebyId($rencontre->state_id);
 			$rencontre->follower_number = $this->RencontreFollower->getFollowersNumberByRencontreId($rencontre->rencontre_id);
-			$rencontre->category = $this->PickListModel->getById($rencontre->category_id);
+			$rencontre->category = $this->PicklistModel->getById($rencontre->category_id);
 			unset($rencontre->user_id);
 			unset($rencontre->state_id);
 			unset($rencontre->category_id);

@@ -22,7 +22,7 @@ class JobModel extends CI_Model
 		}
 		$job[0]['owner'] = $this->UserModel->getUserById($job[0]['user_id']);
 		$job[0]['state'] = $this->State->getStatebyId($job[0]['state_id']);
-		$job[0]['category'] = $this->PickListModel->getById($job[0]['category_id']);
+		$job[0]['category'] = $this->PicklistModel->getById($job[0]['category_id']);
 		unset($job[0]['user_id']);
 		unset($job[0]['state_id']);
 		unset($job[0]['category_id']);
@@ -40,7 +40,7 @@ class JobModel extends CI_Model
 			$job->owner = $this->UserModel->getUserById($job->user_id);
 			$job->state = $this->State->getStatebyId($job->state_id);
 			$job->follower_number = $this->JobFollower->getFollowersNumberByJobId($job->job_id);
-			$job->category = $this->PickListModel->getById($job->category_id);
+			$job->category = $this->PicklistModel->getById($job->category_id);
 			unset($job->user_id);
 			unset($job->state_id);
 			unset($job->category_id);
@@ -77,7 +77,7 @@ class JobModel extends CI_Model
 			$job->owner = $this->UserModel->getUserById($job->user_id);
 			$job->state = $this->State->getStatebyId($job->state_id);
 			$job->follower_number = $this->JobFollower->getFollowersNumberByJobId($job->job_id);
-			$job->category = $this->PickListModel->getById($job->category_id);
+			$job->category = $this->PicklistModel->getById($job->category_id);
 			unset($job->user_id);
 			unset($job->state_id);
 			unset($job->category_id);
@@ -93,7 +93,7 @@ class JobModel extends CI_Model
 			$job->owner = $this->UserModel->getUserById($job->user_id);
 			$job->state = $this->State->getStatebyId($job->state_id);
 			$job->follower_number = $this->JobFollower->getFollowersNumberByJobId($job->job_id);
-			$job->category = $this->PickListModel->getById($job->category_id);
+			$job->category = $this->PicklistModel->getById($job->category_id);
 			unset($job->user_id);
 			unset($job->state_id);
 			unset($job->category_id);
