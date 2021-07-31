@@ -25,7 +25,9 @@ class Job extends API_Controller
 			  }
 			}
 			$this->JobModel->saveJob($data);
-			$this->api_return(['status' => false,"data" =>"enregistrement avec succès.",],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => "enregistrement avec succès")));
 		} catch (Exception $e) {
 				$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
 		}
@@ -46,7 +48,9 @@ class Job extends API_Controller
 			if(!$followers){
 				$this->api_return(['status' => false,"data" =>"emploie introuvable.",],404);exit;
 			}
-			$this->api_return(['status' => false,"data" =>$followers,],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $followers)));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
@@ -64,7 +68,9 @@ class Job extends API_Controller
 			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			}
 			$jobs = $this->JobModel->getUserJobsByUserId($data);
-			$this->api_return(['status' => false,"data" =>$jobs,],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $jobs)));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
@@ -83,7 +89,9 @@ class Job extends API_Controller
 			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			}
 			$this->JobModel->deleteJobById($data);
-			$this->api_return(['status' => false,"data" =>"supprimé avec succès",],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => "supprimé avec succès")));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
@@ -103,7 +111,9 @@ class Job extends API_Controller
 	      "recordsFiltered" => $this->JobTable->get_filtered_data(),
 	      "data" => $data    
 	    );    
-	    $this->api_return(['status' => false,"data" =>$output,],200);exit;
+	   $this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $output)));
 	}
 
 	public function JobByLimit(){
@@ -118,7 +128,9 @@ class Job extends API_Controller
 			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			}
 			$jobs = $this->JobModel->getJobByLimit($limit);
-			$this->api_return(['status' => false,"data" =>$jobs,],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $jobs)));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;

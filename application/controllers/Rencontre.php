@@ -25,7 +25,9 @@ class Rencontre extends API_Controller
 			  }
 			}
 			$this->RencontreModel->saveRencontre($data);
-			$this->api_return(['status' => false,"data" =>"enregistrement avec succès.",],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => "enregistrement avec succès")));
 		} catch (Exception $e) {
 				$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
 		}
@@ -46,7 +48,9 @@ class Rencontre extends API_Controller
 			if(!$rencontre){
 				$this->api_return(['status' => false,"data" =>"emploie introuvable.",],404);exit;
 			}
-			$this->api_return(['status' => false,"data" =>$rencontre,],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $rencontre)));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
@@ -64,7 +68,9 @@ class Rencontre extends API_Controller
 			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			}
 			$rencontre = $this->RencontreModel->getUserRencontresByUserId($data); 
-			$this->api_return(['status' => false,"data" =>$rencontre,],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $rencontre)));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
@@ -82,7 +88,9 @@ class Rencontre extends API_Controller
 			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			}
 			$this->RencontreModel->deleteRencontreById($data);
-			$this->api_return(['status' => false,"data" =>"supprimé avec succès",],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => "supprimé avec succès")));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
@@ -102,7 +110,9 @@ class Rencontre extends API_Controller
 	      "recordsFiltered" => $this->RencontreTable->get_filtered_data(),
 	      "data" => $data    
 	    );    
-	    $this->api_return(['status' => false,"data" =>$output,],200);exit;
+	   $this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $output)));
 	}
 
 	public function RencontreByLimit(){
@@ -117,7 +127,9 @@ class Rencontre extends API_Controller
 			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			}
 			$rencontres = $this->RencontreModel->getRencontreByLimit($limit);
-			$this->api_return(['status' => false,"data" =>$rencontres,],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $rencontres)));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;

@@ -37,7 +37,9 @@ class Vente extends API_Controller
 	            	$this->ImageModel->saveImage($array_image);
 	            }
 	        }
-			$this->api_return(['status' => false,"data" =>"crée avec succès.",],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => "créea avec succès")));
 		} catch (Exception $e) {
 				$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
 		}
@@ -58,7 +60,9 @@ class Vente extends API_Controller
 			if(!$ventes){
 				$this->api_return(['status' => false,"data" =>"annonce introuvable.",],404);exit;
 			}
-			$this->api_return(['status' => false,"data" =>$ventes,],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $ventes)));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
@@ -76,7 +80,9 @@ class Vente extends API_Controller
 			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			}
 			$ventes = $this->VenteModel->getUserVentesByUserId($data);
-			$this->api_return(['status' => false,"data" =>$ventes,],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $ventes)));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
@@ -95,7 +101,9 @@ class Vente extends API_Controller
 			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			}
 			$this->VenteModel->deleteVenteById($data);
-			$this->api_return(['status' => false,"data" =>"supprimé avec succès",],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => "supprimé avec succès")));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
@@ -115,7 +123,9 @@ class Vente extends API_Controller
 	      "recordsFiltered" => $this->VenteTable->get_filtered_data(),
 	      "data" => $data    
 	    );    
-	    $this->api_return(['status' => false,"data" =>$output,],200);exit;
+	    $this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $output)));
 	}
 
 	public function VenteByLimit(){
@@ -130,7 +140,9 @@ class Vente extends API_Controller
 			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			}
 			$ventes = $this->VenteModel->getVenteByLimit($limit);
-			$this->api_return(['status' => false,"data" =>$ventes,],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $ventes)));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;

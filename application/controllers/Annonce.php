@@ -38,7 +38,9 @@ class Annonce extends API_Controller
 	            	$this->ImageModel->saveImage($array_image);
 	            }
 	        }
-			$this->api_return(['status' => false,"data" =>"crée avec succès.",],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => "crée avec succès")));
 		} catch (Exception $e) {
 				$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
 		}
@@ -59,7 +61,9 @@ class Annonce extends API_Controller
 			if(!$followers){
 				$this->api_return(['status' => false,"data" =>"annonce introuvable.",],404);exit;
 			}
-			$this->api_return(['status' => false,"data" =>$followers,],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $followers)));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
@@ -77,7 +81,9 @@ class Annonce extends API_Controller
 			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			}
 			$jobs = $this->AnnonceModel->getUserAnnoncesByUserId($data);
-			$this->api_return(['status' => false,"data" =>$jobs,],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $jobs)));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
@@ -96,7 +102,9 @@ class Annonce extends API_Controller
 			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			}
 			$this->AnnonceModel->deleteAnnonceById($data);
-			$this->api_return(['status' => false,"data" =>"supprimé avec succès",],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => "supprimé")));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
@@ -116,7 +124,9 @@ class Annonce extends API_Controller
 	      "recordsFiltered" => $this->AnnonceTable->get_filtered_data(),
 	      "data" => $data    
 	    );    
-	    $this->api_return(['status' => false,"data" =>$output,],200);exit;
+	    $this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $output)));
 	}
 
 	public function AnnonceByLimit(){

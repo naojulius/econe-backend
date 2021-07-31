@@ -58,12 +58,9 @@ class DatabaseFixture extends API_Controller
 
 
         // return data
-        $this->api_return(
-            [
-                'status' => true,
-                "result" => "CONFIGUREE",
-            ],
-            200);
+        $this->output
+                    ->set_content_type('application/json')
+                    ->set_output(json_encode(array('status' => true,"data" => "configure")));
     }
 
     function set_tables(){

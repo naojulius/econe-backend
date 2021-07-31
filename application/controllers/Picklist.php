@@ -22,7 +22,9 @@ class Picklist extends API_Controller
 			  }
 			}
 			$this->PicklistModel->savePickList($data);
-			$this->api_return(['status' => false,"data" =>"crée avec succès.",],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => "crée avec succès")));
 		} catch (Exception $e) {
 				$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
 		}
@@ -43,7 +45,9 @@ class Picklist extends API_Controller
 			if(!$picklist){
 				$this->api_return(['status' => false,"data" =>"picklist introuvable.",],404);exit;
 			}
-			$this->api_return(['status' => false,"data" =>$picklist,],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $picklist)));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
@@ -61,7 +65,9 @@ class Picklist extends API_Controller
 			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			}
 			$this->PicklistModel->deleteById($data);
-			$this->api_return(['status' => false,"data" =>"supprimé avec succès",],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => "supprimé avec succès")));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
@@ -82,7 +88,9 @@ class Picklist extends API_Controller
 			if(!$picklist){
 				$this->api_return(['status' => false,"data" =>"picklist introuvable.",],404);exit;
 			}
-			$this->api_return(['status' => false,"data" =>$picklist,],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $picklist)));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
