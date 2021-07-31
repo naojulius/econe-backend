@@ -37,11 +37,11 @@ class Auth extends API_Controller
 				'username' => $user[0]->username
 			];
 		$token = $this->authorization_token->generateToken($payload);
-		$this->output
-        ->set_content_type('application/json')
-        ->set_output(json_encode(array('status' => true,"data" => $token)));
-		
-		//$this->api_return(['status' => true,"data" => $token,],200);
+		// $this->output
+  //       ->set_content_type('application/json')
+  //       ->set_output(json_encode(array('status' => true,"data" => $token)));
+
+		$this->api_return(array('status' => true,"data" => $token,),200);
 
 		} catch (Exception $e) {
 			$this->api_return(['status' => false,"data" =>"Erreur interne au serveur!",],500);exit;
