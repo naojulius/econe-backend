@@ -128,10 +128,16 @@ class Annonce extends API_Controller
 		$limit = $_GET["limit"];
 		try {
 			if (!$limit) {
-			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
+			  	$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => "donées insuffisante")));
+						}
 			}
 			$annonces = $this->AnnonceModel->getAnnonceByLimit($limit);
-			$this->api_return(['status' => false,"data" =>$annonces,],200);exit;
+			$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $annonces)));
+						}
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;

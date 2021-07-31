@@ -37,11 +37,11 @@ class Auth extends API_Controller
 				'username' => $user[0]->username
 			];
 		$token = $this->authorization_token->generateToken($payload);
-		// $this->output
-  //       ->set_content_type('application/json')
-  //       ->set_output(json_encode(array('status' => true,"data" => $token)));
+		$this->output
+        ->set_content_type('application/json')
+        ->set_output(json_encode(array('status' => true,"data" => $token)));
 
-		$this->api_return(array('status' => true,"data" => $token,),200);
+		//$this->api_return(array('status' => true,"data" => $token,),200);
 
 		} catch (Exception $e) {
 			$this->api_return(['status' => false,"data" =>"Erreur interne au serveur!",],500);exit;
@@ -57,7 +57,10 @@ class Auth extends API_Controller
 		]);
 
 		if ($this->input->post("JsonBody") == false) {
-           $this->api_return(['status' => true,"data" => "donées manquante",],404);exit;
+           //$this->api_return(['status' => true,"data" => "donées manquante",],404);exit;
+			$this->output
+		        ->set_content_type('application/json')
+		        ->set_output(json_encode(array('status' => true,"data" => "données manquante")));
         }
 		$file_name = null;
 		if (count($_FILES) > 0) {
@@ -71,8 +74,10 @@ class Auth extends API_Controller
 		 $data = json_decode($this->input->post("JsonBody"), true);
 		 foreach ($data as $key => $value) {
 			if (!$value) {
-			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
-			}
+			  	$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => "donées manquante")));
+						}
 		}
 		try {
 			$data['photo'] = $file_name;
