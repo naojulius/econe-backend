@@ -39,7 +39,7 @@ class Auth extends API_Controller
 		$token = $this->authorization_token->generateToken($payload);
 		$this->output
         ->set_content_type('application/json')
-        ->set_output(json_encode(array('foo' => 'bar')));
+        ->set_output(json_encode(array('status' => true,"data" => $token)));
 		
 		//$this->api_return(['status' => true,"data" => $token,],200);
 
