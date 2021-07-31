@@ -54,7 +54,7 @@ class JobModel extends CI_Model
 		$data['date'] = date("Y/m/d h:i:sa");
 		$data['reference'] = $this->Reference->new();
 		$resp = $this->db->insert($this->table, $data);
-		return $resp;
+		return $u_id;
 	}
 	public function deleteJobById($id){
 		$data = array(

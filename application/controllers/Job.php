@@ -24,10 +24,36 @@ class Job extends API_Controller
 			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			  }
 			}
-			$this->JobModel->saveJob($data);
-			$this->output
-			        ->set_content_type('application/json')
-			        ->set_output(json_encode(array('status' => true,"data" => "enregistrement avec succès")));
+			$entityId = $this->JobModel->saveJob($data);
+
+			if (empty($entityId)) {
+				$this->output
+						->set_content_type('application/json')
+						->set_output(json_encode(array('status' => false,"data" => "Une erreur est survenue.")));
+			}
+
+			$user = $this->UserModel->getUserById($data["user_id"]);
+
+			$paymentData = array (
+				"entity_type" => "Jobs",
+				"entity_id" => $entityId,
+				"montant" => 1000,
+				"name" => $user[0]->firstName . " " . $user[0]->lastName
+			);
+			try {
+				$result = $this->Payment->process($paymentData);
+				$this->output
+						->set_content_type('application/json')
+						->set_output(json_encode(array('status' => true,"data" => $result)));
+			} catch (\Exception $e) {
+				$this->output
+						->set_content_type('application/json')
+						->set_output(json_encode(array('status' => false,"data" => $e->getMessage())));
+			}
+
+			// $this->output
+			//         ->set_content_type('application/json')
+			//         ->set_output(json_encode(array('status' => true,"data" => "enregistrement avec succès")));
 		} catch (Exception $e) {
 				$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
 		}

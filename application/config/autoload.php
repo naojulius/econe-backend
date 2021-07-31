@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database', 'Authorization_Token');
+$autoload['libraries'] = array('database');
 
 /*
 | -------------------------------------------------------------------
@@ -156,5 +156,6 @@ $autoload['model'] = array(
 	"Image/ImageModel",
 	"Rencontre/RencontreModel",
 	"Vente/VenteModel",
-	"Vente/VenteTable"
+	"Vente/VenteTable",
+	"Payment/Payment"
 );
