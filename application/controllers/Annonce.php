@@ -131,7 +131,6 @@ class Annonce extends API_Controller
 			  	$this->output
 			        ->set_content_type('application/json')
 			        ->set_output(json_encode(array('status' => true,"data" => "donées insuffisante")));
-						}
 			}
 			$annonces = $this->AnnonceModel->getAnnonceByLimit($limit);
 			$this->output
