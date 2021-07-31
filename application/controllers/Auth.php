@@ -37,6 +37,7 @@ class Auth extends API_Controller
 				'username' => $user[0]->username
 			];
 		$token = $this->authorization_token->generateToken($payload);
+		header('Content-type: application/json');
 		$this->api_return(['status' => true,"data" => $token,],200);
 
 		} catch (Exception $e) {
