@@ -93,7 +93,11 @@ class Picklist extends API_Controller
 			        ->set_output(json_encode(array('status' => true,"data" => $picklist)));
 			
 		} catch (Exception $e) {
-		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
+		// $this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l //administrateur.",],400);exit;
+		$this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => "Erreur interne au serveur, veuillez contacter l'administrateur.")));
+
 		}
 	}
 }
