@@ -54,6 +54,7 @@ class VenteModel extends CI_Model
 		$data['vente_id'] = $u_id;
 		$data['date'] = date("Y/m/d h:i:sa");
 		$data['reference'] = $this->Reference->new();
+		$data['state_id'] = "4E91B75B-D204-7186-744F-9BCFA91FDF55";
 		$resp = $this->db->insert($this->table, $data);
 		return $u_id;
 	}

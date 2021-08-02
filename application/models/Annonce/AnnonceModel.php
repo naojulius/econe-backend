@@ -53,6 +53,7 @@ class AnnonceModel extends CI_Model
 		$u_id = $this->Guid->newGuid();
 		$data['annonce_id'] = $u_id;
 		$data['date'] = date("Y/m/d h:i:sa");
+		$data['state_id'] = "4E91B75B-D204-7186-744F-9BCFA91FDF55";
 		$data['reference'] = $this->Reference->new();
 		$resp = $this->db->insert($this->table, $data);
 		return $u_id;

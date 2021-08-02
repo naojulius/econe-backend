@@ -64,25 +64,26 @@ class DatabaseFixture extends API_Controller
     }
 
     function set_tables(){
-        $this->configure_api_tables();
-        $this->configure_picklist_table();
-       
-        $this->configure_users_table();
-        $this->configure_jobs_table();
-        $this->configure_fixture();
-        $this->configure_annonce_table();
-        $this->configure_vente_table();
-        $this->configure_flash_annonce_table();
-        $this->configure_image_table();
-        $this->configure_rencontre_table();
-         
-
-        $this->fake_user();
+        $this->configure_menu_tables();
+       //  $this->configure_api_tables();
         
-       $this->fake_annonce();
-       $this->fake_rencontre();
-       $this->fake_vente();
-        $this->fake_flashannonce();
+       //  $this->configure_picklist_table();
+       
+       //  $this->configure_users_table();
+       //  $this->configure_jobs_table();
+       //  $this->configure_fixture();
+       //  $this->configure_annonce_table();
+       //  $this->configure_vente_table();
+       //  $this->configure_flash_annonce_table();
+       //  $this->configure_image_table();
+       //  $this->configure_rencontre_table();
+         
+       //  $this->fake_user();
+        
+       // $this->fake_annonce();
+       // $this->fake_rencontre();
+       // $this->fake_vente();
+       //  $this->fake_flashannonce();
 
     }
 
@@ -776,4 +777,23 @@ public function fake_vente(){
           $this->FlashAnnonceModel->saveFlashAnnonce($fls); 
         }
     }
+public function configure_menu_tables(){
+    $menus_table = array(
+        'level' => array(
+            'type' => 'INT',
+        ),
+        'value' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+        ),
+        'key' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+        ),
+
+    );
+    $this->dbforge->add_field($menus_table);
+    $this->dbforge->add_field('menu_id VARCHAR(100) NOT NULL PRIMARY KEY');
+    $this->dbforge->create_table('menus', true);
+}
 }
