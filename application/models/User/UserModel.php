@@ -31,4 +31,22 @@ class UserModel extends CI_Model
 		$key = array_rand($data);
 		return  $data[$key];
 	}
+	public function getUserStatusByUSerId($id){
+		$condition = array(
+			'user_id'=>$id
+		);
+		return $this->db->select('*')->from('user_status')->where($condition)->get()->result_array()[0];
+	}
+
+	public function getAllUser(){
+		$this->db->select('username, user_id, photo, firstName, lastName, nationality, birthDate, sexe, phone, nationality')->from($this->table);
+		$data = $this->db->get()->result();
+
+		$response = array();
+		foreach ($data as $user) {
+			$user->status = $this->UserModel->getUserStatusByUSerId($user->user_id);
+			array_push($response, $user);
+		}
+		return $response;
+	}
 }

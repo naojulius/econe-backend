@@ -136,6 +136,7 @@ $autoload['model'] = array(
 	"Utils/Guid/Guid",
 	"Utils/CorsOrigin/CorsOrigin",
 	"User/UserModel",
+	"User/UserTable",
 	"Utils/HTTP_RESPONSE/HttpResponse",
 	"Utils/Reference/Reference",
 	"State/State",

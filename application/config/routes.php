@@ -75,6 +75,7 @@ $route['api/payments/process'] = "PaiementController/validerAchat";
 $route['api/auth/login']  = 'auth/login';
 $route['api/auth/registration']  = 'auth/new';
 $route['api/user/get']  = 'auth/getById';
+$route['api/user/all']  = 'auth/getAllUser';
 
 
 /*

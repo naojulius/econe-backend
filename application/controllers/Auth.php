@@ -119,4 +119,21 @@ class Auth extends API_Controller
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
 		}
 	}
+	public function getAllUser(){
+		$fetch_data = $this->UserTable->make_datatables();
+	    $data = array();
+	    foreach($fetch_data as $row){
+	      $sub_array = $this->UserModel->getAllUser();
+	      $data = $sub_array;    
+	    }
+	    $output = array(
+	      "draw" => intval($_POST["draw"]),
+	      "recordsTotal" => $this->UserTable->get_all_data(),
+	      "recordsFiltered" => $this->UserTable->get_filtered_data(),
+	      "data" => $data    
+	    );    
+	    $this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $output)));
+	}
 }
