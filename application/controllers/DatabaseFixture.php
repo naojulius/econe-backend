@@ -69,7 +69,7 @@ class DatabaseFixture extends API_Controller
         
          $this->configure_picklist_table();
        
-       //  $this->configure_users_table();
+         $this->configure_users_table();
          $this->configure_jobs_table();
        //  $this->configure_fixture();
          $this->configure_annonce_table();
@@ -84,6 +84,17 @@ class DatabaseFixture extends API_Controller
        // $this->fake_rencontre();
        // $this->fake_vente();
        //  $this->fake_flashannonce();
+         $super_admin = array(
+            'user_id'=> "",
+            'email'=>'naojulius.mg@gmail.com',
+            'photo'=>'user.png',
+            'firstName'=> 'NAO',
+            'lastName'=>'julius',
+            'username'=>'naojulius',
+            'password'=> "1230", 
+            'sexe'=>"Homme",
+            );
+        $this->UserModel->saveUser($super_admin);
 
     }
 
