@@ -8,10 +8,11 @@ class AnnonceTable extends CI_Model
 	function make_query(){
 		$this->db->select($this->select_column);
 		$this->db->from($this->table)->order_by('rand()');
+		$this->db->join('menus', 'menus.menu_id=annonces.menu_id');
 		if(isset($_POST["search"]["value"])){
 			$this->db->like('title', $_POST["search"]["value"]);
 			$this->db->or_like('description', $_POST["search"]["value"]);
-			$this->db->or_like('marque', $_POST["search"]["value"]);  
+			$this->db->or_like('value', $_POST["search"]["value"]);  
 
 		}
 		if(isset($_POST["order"])){

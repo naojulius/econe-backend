@@ -81,10 +81,11 @@ $route['api/user/all']  = 'auth/getAllUser';
 /*
    flash annonces
 */
-
-   /*
-   menu
-   */
-   $route['api/menu/get'] = "menu/getByKey";
-
 $route['api/flashannonce/number'] = "flashAnnonce/FlashAnnonceByLimit";
+/*
+menu
+*/
+$route['api/menu/get'] = "menu/getByKey";
+$route['api/menu/groupe'] = "menu/getByGroupe";
+
+

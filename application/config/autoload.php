@@ -158,5 +158,6 @@ $autoload['model'] = array(
 	"Rencontre/RencontreModel",
 	"Vente/VenteModel",
 	"Vente/VenteTable",
-	"Payment/Payment"
+	"Payment/Payment",
+	"Menu/MenuModel"
 );

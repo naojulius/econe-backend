@@ -49,4 +49,27 @@ class Menu extends API_Controller
                     ->set_content_type('application/json')
                     ->set_output(json_encode($output));
 	}
+	public function getByGroupe(){
+			$this->_apiConfig([
+				'methods' => ['GET'],
+				 'requireAuthorization' => $this->requireAuthorization,
+			]);
+			$data = $_GET["key"];
+			if(!$data){
+
+			}
+			$condition = array(
+				'key'=>$data,
+				'level'=>3,
+			);
+			$this->db->select('*')->from($this->table)->where($condition);
+			$menus = $this->db->get()->result_array();
+			$output = array(
+				'status' => true,"data" => $menus
+			);
+			$this->output
+	                    ->set_content_type('application/json')
+	                    ->set_output(json_encode($output));
+
+	}
 }

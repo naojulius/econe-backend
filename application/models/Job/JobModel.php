@@ -22,10 +22,10 @@ class JobModel extends CI_Model
 		}
 		$job[0]['owner'] = $this->UserModel->getUserById($job[0]['user_id']);
 		$job[0]['state'] = $this->State->getStatebyId($job[0]['state_id']);
-		$job[0]['category'] = $this->PicklistModel->getById($job[0]['category_id']);
+		$job[0]['category'] = $this->PicklistModel->getById($job[0]['menu_id']);
 		unset($job[0]['user_id']);
 		unset($job[0]['state_id']);
-		unset($job[0]['category_id']);
+		unset($job[0]['menu_id']);
 		return $job;
 	}
 	public function getUserJobsByUserId($id){
@@ -40,10 +40,10 @@ class JobModel extends CI_Model
 			$job->owner = $this->UserModel->getUserById($job->user_id);
 			$job->state = $this->State->getStatebyId($job->state_id);
 			$job->follower_number = $this->JobFollower->getFollowersNumberByJobId($job->job_id);
-			$job->category = $this->PicklistModel->getById($job->category_id);
+			$job->category = $this->PicklistModel->getById($job->menu_id);
 			unset($job->user_id);
 			unset($job->state_id);
-			unset($job->category_id);
+			unset($job->menu_id);
 			array_push($response, $job);
 		}
 		return $response;
@@ -53,7 +53,9 @@ class JobModel extends CI_Model
 		$data['job_id'] = $u_id;
 		$data['date'] = date("Y/m/d h:i:sa");
 		$data['state_id'] = "4E91B75B-D204-7186-744F-9BCFA91FDF55";
+		$data['menu_id']  = "102S15BC-8MK6-0NVF-E9DF-9E72N75D7613";
 		$data['reference'] = $this->Reference->new();
+		unset($data['montant']);
 		$resp = $this->db->insert($this->table, $data);
 		return $u_id;
 	}
@@ -78,10 +80,10 @@ class JobModel extends CI_Model
 			$job->owner = $this->UserModel->getUserById($job->user_id);
 			$job->state = $this->State->getStatebyId($job->state_id);
 			$job->follower_number = $this->JobFollower->getFollowersNumberByJobId($job->job_id);
-			$job->category = $this->PicklistModel->getById($job->category_id);
+			$job->category = $this->PicklistModel->getById($job->menu_id);
 			unset($job->user_id);
 			unset($job->state_id);
-			unset($job->category_id);
+			unset($job->menu_id);
 			array_push($response, $job);
 		}
 		return $response;
@@ -94,10 +96,10 @@ class JobModel extends CI_Model
 			$job->owner = $this->UserModel->getUserById($job->user_id);
 			$job->state = $this->State->getStatebyId($job->state_id);
 			$job->follower_number = $this->JobFollower->getFollowersNumberByJobId($job->job_id);
-			$job->category = $this->PicklistModel->getById($job->category_id);
+			$job->category = $this->PicklistModel->getById($job->menu_id);
 			unset($job->user_id);
 			unset($job->state_id);
-			unset($job->category_id);
+			unset($job->menu_id);
 			array_push($response, $job);
 		}
 		return $response;

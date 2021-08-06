@@ -7,10 +7,13 @@ class RencontreTable extends CI_Model
 	var $order_column = array(null, null, null, null,null , null);
 	function make_query(){
 		$this->db->select($this->select_column)->order_by('rand()');
+
 		$this->db->from($this->table);
+		$this->db->join('users', 'users.user_id=rencontres.user_id');
 		if(isset($_POST["search"]["value"])){
-			$this->db->like('reference', $_POST["search"]["value"]);
+			$this->db->like('sexe', $_POST["search"]["value"]);
 			$this->db->or_like('description', $_POST["search"]["value"]);
+			$this->db->or_like('reference', $_POST["search"]["value"]);
 
 		}
 		if(isset($_POST["order"])){
@@ -18,9 +21,9 @@ class RencontreTable extends CI_Model
 		}else{
 			$this->db->order_by('rencontre_id', 'DESC');
 		}
-		if(isset($_POST["filter_category"]["name"])){
-			$this->db->like('description', $_POST["filter_category"]["name"]);
-			$this->db->or_like('reference', $_POST["search"]["value"]);
+		if(isset($_POST["filter"]["name"])){
+			$this->db->like('sexe', $_POST["filter"]["name"]);
+			$this->db->or_like('phone', $_POST["filter"]["name"]);
 		}
 	}
 	function make_datatables(){

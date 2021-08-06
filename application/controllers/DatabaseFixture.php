@@ -65,18 +65,18 @@ class DatabaseFixture extends API_Controller
 
     function set_tables(){
         $this->configure_menu_tables();
-       //  $this->configure_api_tables();
+         $this->configure_api_tables();
         
-       //  $this->configure_picklist_table();
+         $this->configure_picklist_table();
        
        //  $this->configure_users_table();
-       //  $this->configure_jobs_table();
+         $this->configure_jobs_table();
        //  $this->configure_fixture();
-       //  $this->configure_annonce_table();
-       //  $this->configure_vente_table();
-       //  $this->configure_flash_annonce_table();
-       //  $this->configure_image_table();
-       //  $this->configure_rencontre_table();
+         $this->configure_annonce_table();
+         $this->configure_vente_table();
+         $this->configure_flash_annonce_table();
+         $this->configure_image_table();
+         $this->configure_rencontre_table();
          
        //  $this->fake_user();
         
@@ -278,7 +278,7 @@ function configure_jobs_table(){
             'type' => 'VARCHAR',
             'constraint' => '100',
         ),
-        'category_id' => array(
+        'menu_id' => array(
             'type' => 'VARCHAR',
             'constraint' => '100',
         ),
@@ -306,7 +306,7 @@ function configure_jobs_table(){
     $this->dbforge->add_field($jobs_fields);
     $this->dbforge->add_field('job_id VARCHAR(100) NOT NULL PRIMARY KEY');
     $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (user_id) REFERENCES users(user_id)');
-    $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (category_id) REFERENCES picklists(picklist_id)');
+    $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (menu_id) REFERENCES menus(menu_id)');
     $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (state_id) REFERENCES state(state_id)');
     $this->dbforge->create_table('jobs', true);
     
@@ -446,7 +446,7 @@ function configure_annonce_table(){
             'type' => 'VARCHAR',
             'constraint' => '100',
         ),
-        'category_id' => array(
+        'menu_id' => array(
             'type' => 'VARCHAR',
             'constraint' => '100',
         ),
@@ -457,7 +457,8 @@ function configure_annonce_table(){
     $this->dbforge->add_field($fields);
     $this->dbforge->add_field('annonce_id VARCHAR(100) NOT NULL PRIMARY KEY');
     $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (user_id) REFERENCES users(user_id)');
-    $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (category_id) REFERENCES picklists(picklist_id)');
+    //$this->dbforge->add_field('CONSTRAINT FOREIGN KEY (category_id) REFERENCES picklists(picklist_id)');
+    $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (menu_id) REFERENCES menus(menu_id)');
     $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (state_id) REFERENCES state(state_id)');
 
     $this->dbforge->create_table('annonces', true);
@@ -595,7 +596,7 @@ public function fake_vente(){
             'type' => 'VARCHAR',
             'constraint' => '100',
         ),
-        'category_id' => array(
+        'menu_id' => array(
             'type' => 'VARCHAR',
             'constraint' => '100',
         ),
@@ -606,7 +607,7 @@ public function fake_vente(){
     $this->dbforge->add_field($fields);
     $this->dbforge->add_field('vente_id VARCHAR(100) NOT NULL PRIMARY KEY');
     $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (user_id) REFERENCES users(user_id)');
-    $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (category_id) REFERENCES picklists(picklist_id)');
+    $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (menu_id) REFERENCES menus(menu_id)');
     $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (state_id) REFERENCES state(state_id)');
     $this->dbforge->create_table('ventes', true);
 
@@ -656,7 +657,7 @@ public function fake_vente(){
             'type' => 'VARCHAR',
             'constraint' => '100',
         ),
-        'category_id' => array(
+        'menu_id' => array(
             'type' => 'VARCHAR',
             'constraint' => '100',
         ),
@@ -667,7 +668,7 @@ public function fake_vente(){
     $this->dbforge->add_field($fields);
     $this->dbforge->add_field('rencontre_id VARCHAR(100) NOT NULL PRIMARY KEY');
     $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (user_id) REFERENCES users(user_id)');
-    $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (category_id) REFERENCES picklists(picklist_id)');
+    $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (menu_id) REFERENCES menus(menu_id)');
     $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (state_id) REFERENCES state(state_id)');
     $this->dbforge->create_table('rencontres', true);
 
@@ -744,7 +745,7 @@ public function fake_vente(){
             'type' => 'VARCHAR',
             'constraint' => '100',
         ),
-        'category_id' => array(
+        'menu_id' => array(
             'type' => 'VARCHAR',
             'constraint' => '100',
         ),
@@ -755,7 +756,7 @@ public function fake_vente(){
     $this->dbforge->add_field($fields);
     $this->dbforge->add_field('flashannonce_id VARCHAR(100) NOT NULL PRIMARY KEY');
     $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (user_id) REFERENCES users(user_id)');
-    $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (category_id) REFERENCES picklists(picklist_id)');
+    $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (menu_id) REFERENCES menus(menu_id)');
     $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (state_id) REFERENCES state(state_id)');
     $this->dbforge->create_table('flashannonces', true);
     }
@@ -772,7 +773,7 @@ public function fake_vente(){
             'link' => "https://test_image",
             'state_id' => $rand_state->state_id,
             'user_id' => $rand_user->user_id,
-            'category_id'=>$rand_picklist->picklist_id,
+            'menu_id'=>"182C35BC-2DB6-0NCB-E7GF-9E72A75D7654",
          );
           $this->FlashAnnonceModel->saveFlashAnnonce($fls); 
         }
