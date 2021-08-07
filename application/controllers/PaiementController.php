@@ -12,8 +12,11 @@ class PaiementController extends API_Controller {
         // $this->load->helper(array('form'));
     }
 
-    public function validerAchat() {
+    public function validerAchat() 
+    {
         // $Payment = new Payment\Payment();
+
+        log_message('debug', 'sql query fail in... ', false);
 
         // $this->AnnonceModel
         $paymentData = array (
@@ -32,6 +35,32 @@ class PaiementController extends API_Controller {
 			        ->set_content_type('application/json')
 			        ->set_output(json_encode(array('status' => false,"data" => $e->getMessage())));
         }
+    }
 
+    public function paimentSuccess()
+    {
+        $this->load->library('PHPTdes');
+		$this->load->library('Paiement');
+		$tdes = new pHPTdes();
+		$util = new Util();
+		$parts = parse_url($_SERVER['REQUEST_URI']);
+		parse_str($parts['query'], $query);
+
+		$idPanier = $util->decrypter('952770057584ed90f851a84235bfb6e062900428ae754409ce', $query['idpanier']);		
+		$idpaiement = $util->decrypter('952770057584ed90f851a84235bfb6e062900428ae754409ce', $query['idpaiement']);		
+		$ref_arn = $util->decrypter('952770057584ed90f851a84235bfb6e062900428ae754409ce', $query['ref_arn']);		
+		$code_arn = $util->decrypter('952770057584ed90f851a84235bfb6e062900428ae754409ce', $query['code_arn']);		
+        $nomPayeur = $util->decrypter('952770057584ed90f851a84235bfb6e062900428ae754409ce', $query['nom']);
+        
+        log_message('debug', 'idPanier : ' . $idPanier, false);
+        log_message('debug', 'idpaiement : ' . $idpaiement, false);
+        log_message('debug', 'ref_arn : ' . $ref_arn, false);
+        log_message('debug', 'code_arn : ' . $code_arn, false);
+        log_message('debug', 'nomPayeur : ' . $nomPayeur, false);
+    }
+
+    public function paimentFailed()
+    {
+        log_message('debug', 'PaimentFailed', false);
     }
 }

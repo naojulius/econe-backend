@@ -67,7 +67,10 @@ $route['api/vente/unfollow'] = 'follower/unfollowVente'; //POST
 $route['api/vente/all'] = "vente/venteTable"; //POST
 $route['api/vente/number'] = "vente/VenteByLimit";
 
-$route['api/payments/process'] = "PaiementController/validerAchat";
+// Paiement.
+$route['api/payments/process'] = "PaiementController/validerAchat"; // Procéder à un paiement
+$route['success'] = "PaiementController/paimentSuccess";
+$route['echec'] = "PaiementController/paimentFailed";
 
 /*
    authentications 
