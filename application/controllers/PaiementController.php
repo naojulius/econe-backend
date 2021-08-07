@@ -14,10 +14,6 @@ class PaiementController extends API_Controller {
 
     public function validerAchat() 
     {
-        // $Payment = new Payment\Payment();
-
-        log_message('debug', 'sql query fail in... ', false);
-
         // $this->AnnonceModel
         $paymentData = array (
             "entity_type" => "Annonces",
@@ -39,6 +35,11 @@ class PaiementController extends API_Controller {
 
     public function paimentSuccess()
     {
+        $this->_apiConfig([
+			'methods' => ['GET'],
+			'requireAuthorization' => $this->requireAuthorization,
+        ]);
+
         $this->load->library('PHPTdes');
 		$this->load->library('Paiement');
 		$tdes = new pHPTdes();
@@ -61,6 +62,12 @@ class PaiementController extends API_Controller {
 
     public function paimentFailed()
     {
+        $this->CorsOrigin->Allow();
+		$this->_apiConfig([
+			'methods' => ['GET'],
+			'requireAuthorization' => $this->requireAuthorization,
+        ]);
+
         log_message('debug', 'PaimentFailed', false);
     }
 }
