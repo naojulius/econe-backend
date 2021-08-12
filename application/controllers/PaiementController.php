@@ -6,6 +6,7 @@ header("Access-Control-Allow-Headers: Authorization, Content-Type");
 require_once APPPATH . 'libraries/API_Controller.php';
 
 class PaiementController extends API_Controller {
+    var $requireAuthorization = false;
     public function __construct()
     {
         parent::__construct();
@@ -26,7 +27,7 @@ class PaiementController extends API_Controller {
             $this->output
 			        ->set_content_type('application/json')
 			        ->set_output(json_encode(array('status' => true,"data" => $result)));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->output
 			        ->set_content_type('application/json')
 			        ->set_output(json_encode(array('status' => false,"data" => $e->getMessage())));
