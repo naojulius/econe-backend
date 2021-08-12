@@ -5,15 +5,17 @@ class AnnonceTable extends CI_Model
 	var $table = "annonces";
 	var $select_column = array("*");
 	var $order_column = array(null, null, null, null,null , null);
+	var $condition = array("text"=>StateEnum::PAYED_NOT_EXPIRED);
 	function make_query(){
 		$this->db->select($this->select_column);
 		$this->db->from($this->table)->order_by('rand()');
+		$this->db->join('state', 'state.state_id=annonces.state_id');
 		$this->db->join('menus', 'menus.menu_id=annonces.menu_id');
-		if(isset($_POST["search"]["value"])){
-			$this->db->like('title', $_POST["search"]["value"]);
-			$this->db->or_like('description', $_POST["search"]["value"]);
-			$this->db->or_like('value', $_POST["search"]["value"]);  
-
+		$this->db->where($this->condition);
+		if($_POST["search"]["value"]){
+				$this->db->like('title', $_POST["search"]["value"]);
+				$this->db->or_like('description', $_POST["search"]["value"]);
+				$this->db->or_like('value', $_POST["search"]["value"]); 
 		}
 		if(isset($_POST["order"])){
 			$this->db->order_by($this->order_column[$_POST["order"]["0"]["column"]], $_POST["order"]["0"]["dir"]);
@@ -43,6 +45,8 @@ class AnnonceTable extends CI_Model
 		$this->db->select('*');
 		$this->db->from($this->table);
 		return $this->db->count_all_results();
+		$this->db->join('state', 'state.state_id=annonces.state_id');
+		$this->db->where($this->condition);
 	}
 }
 

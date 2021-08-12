@@ -1,16 +1,19 @@
 <?php 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
+
 class RencontreTable extends CI_Model
 {
 	var $table = "rencontres";
 	var $select_column = array("*");
 	var $order_column = array(null, null, null, null,null , null);
+	var $condition = array("text"=>StateEnum::PAYED_NOT_EXPIRED);
 	function make_query(){
 		$this->db->select($this->select_column)->order_by('rand()');
-
 		$this->db->from($this->table);
 		$this->db->join('users', 'users.user_id=rencontres.user_id');
-		if(isset($_POST["search"]["value"])){
+		$this->db->join('state', 'state.state_id=rencontres.state_id');
+		$this->db->where($this->condition);
+		if($_POST["search"]["value"]){
 			$this->db->like('sexe', $_POST["search"]["value"]);
 			$this->db->or_like('description', $_POST["search"]["value"]);
 			$this->db->or_like('reference', $_POST["search"]["value"]);
@@ -43,6 +46,9 @@ class RencontreTable extends CI_Model
 	function get_all_data(){
 		$this->db->select('*');
 		$this->db->from($this->table);
+		$this->db->join('users', 'users.user_id=rencontres.user_id');
+		$this->db->join('state', 'state.state_id=rencontres.state_id');
+		$this->db->where($this->condition);
 		return $this->db->count_all_results();
 	}
 }

@@ -5,10 +5,13 @@ class JobTable extends CI_Model
 	var $table = "jobs";
 	var $select_column = array("*");
 	var $order_column = array(null, null, null, null,null , null);
+	var $condition = array("text"=>StateEnum::PAYED_NOT_EXPIRED);
 	function make_query(){
 		$this->db->select($this->select_column)->order_by('rand()');
+		$this->db->join('state', 'state.state_id=jobs.state_id');
+		$this->db->where($this->condition);
 		$this->db->from($this->table);
-		if(isset($_POST["search"]["value"])){
+		if($_POST["search"]["value"]){
 			$this->db->like('poste', $_POST["search"]["value"]);
 			$this->db->or_like('description', $_POST["search"]["value"]);
 			$this->db->or_like('society', $_POST["search"]["value"]);  

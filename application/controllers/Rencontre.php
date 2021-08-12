@@ -3,6 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET");
 header("Access-Control-Allow-Headers: Authorization, Content-Type");
 require_once APPPATH . 'libraries/API_Controller.php';
+require_once APPPATH.'enumerations/StateEnum.php';
 
 class Rencontre extends API_Controller
 {
