@@ -1,5 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 require_once APPPATH . 'libraries/API_Controller.php';
+require_once APPPATH.'enumerations/StateEnum.php';
 
 class Counts extends API_Controller
 {
