@@ -20,7 +20,7 @@ class JobTable extends CI_Model
 		if(isset($_POST["order"])){
 			$this->db->order_by($this->order_column[$_POST["order"]["0"]["column"]], $_POST["order"]["0"]["dir"]);
 		}else{
-			$this->db->order_by('job_id', 'DESC');
+			$this->db->order_by('date', 'DESC');
 		}
 		if(isset($_POST["filter_category"]["name"])){
 			$this->db->like('poste', $_POST["filter_category"]["name"]);

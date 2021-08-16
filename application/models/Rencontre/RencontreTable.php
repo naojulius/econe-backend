@@ -22,7 +22,7 @@ class RencontreTable extends CI_Model
 		if(isset($_POST["order"])){
 			$this->db->order_by($this->order_column[$_POST["order"]["0"]["column"]], $_POST["order"]["0"]["dir"]);
 		}else{
-			$this->db->order_by('rencontre_id', 'DESC');
+			$this->db->order_by('date', 'DESC');
 		}
 		if(isset($_POST["filter"]["name"])){
 			$this->db->like('sexe', $_POST["filter"]["name"]);
