@@ -69,8 +69,9 @@ $route['api/vente/number'] = "vente/VenteByLimit";
 
 // Paiement.
 $route['api/payments/process'] = "PaiementController/validerAchat"; // Procéder à un paiement
-$route['success'] = "PaiementController/paimentSuccess";
-$route['echec'] = "PaiementController/paimentFailed";
+$route['payment/notif'] = "PaiementController/paimentNotif";
+$route['payment/success'] = "PaiementController/paimentSuccess";
+$route['payment/echec'] = "PaiementController/paimentFailed";
 
 /*
    authentications 

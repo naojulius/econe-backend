@@ -30,10 +30,9 @@ class Paiement {
         $this->private_key = $params['private_key'];
         $this->client_id = $params['client_id'];
         $this->client_secret = $params['client_secret'];
-        $this->site_url= "https://e-cone.mg";
+        $this->site_url= "https://www.e-cone.mg";
         $this->CI->load->library('util');
     }
-
 
     /**
      * @return mixed
