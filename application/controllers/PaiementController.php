@@ -62,6 +62,19 @@ class PaiementController extends API_Controller {
         log_message('debug', 'code_arn : ' . $code_arn, false);
         log_message('debug', 'nomPayeur : ' . $nomPayeur, false);
 
+        $idPanierArr = explode("-", $idPanier);
+        $entity = $idPanierArr[0];
+        $idEntity = $idPanierArr[1];
+
+        if ($entity === "Annonce") {
+            // $this->AnnonceModel->getAnnonceById($data);
+            $this->AnnonceModel->updateAnnonceState($idEntity , "PAYED_NOT_EXPIRED");
+        } elseif ($entity === "Rencontre") {
+            $this->RencontreModel->updateRencontreState($idEntity, "PAYED_NOT_EXPIRED");
+        } elseif ($entity === "Job") {
+            $this->JobModel->updateJobState($idEntity, "PAYED_NOT_EXPIRED");
+        }
+
         $this->output
             ->set_content_type('application/json')
             ->set_output(json_encode(array('status' => true,"message" => "Submited successfully")));

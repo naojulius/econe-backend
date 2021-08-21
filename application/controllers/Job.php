@@ -36,7 +36,7 @@ class Job extends API_Controller
 			$user = $this->UserModel->getUserById($data["user_id"]);
 
 			$paymentData = array (
-				"entity_type" => "Jobs",
+				"entity_type" => "Job",
 				"entity_id" => $entityId,
 				"montant" => 1000,
 				"name" => $user[0]->firstName . " " . $user[0]->lastName

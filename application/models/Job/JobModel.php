@@ -104,4 +104,24 @@ class JobModel extends CI_Model
 		}
 		return $response;
 	}
+
+	/**
+	 * Mettre à jour un job pour avoir un nouveau statut
+	 */
+	public function updateAnnonceState($id, $statusText)
+	{
+		if ($statusText === "PAYED_NOT_EXPIRED") {
+			$statusId = '5D7E4A1C-5EFE-CE4D-4FE3-C273F52FBA26';
+		} else if ($statusText === "PAYED_EXPIRED") {
+			$statusId = "962A9106-4EEF-51C9-EEA8-B3D32018CC4C";
+		} else if ($statusText === "EXPIRED_NOT_PAYED") {
+			$statusId = "C6F4B459-6F90-D959-F2FC-890A0E63C7FE";
+		}
+		$data = array(
+			'state_id' => $statusId
+		);
+
+		$this->db->where('job_id', $id);
+		$this->db->update($this->table, $data);
+	}
 }
