@@ -26,17 +26,16 @@ class Menu extends API_Controller
 			'key'=>$data,
 			'level'=>1,
 		);
-
 		$this->db->select('*')->from($this->table)->where($condition);
 		$menus = $this->db->get()->result_array();
 		$menus[0]['childs'] = array();
 		foreach ($menus as $menu) {		
-		$resp = $this->db->select('*')->from($this->table)->where(array('key'=>$data,'level'=>$menu['level'] + 1))->get()->result_array();
+		$resp = $this->db->select('*')->from($this->table)->where(array('key'=>$data,'level'=>$menu['level'] + 1))->order_by("value", "asc")->get()->result_array();
 			foreach ($resp as $key=> $sub) {
 
 				if(is_numeric($key)){	
 					$subvalue = preg_replace('/[^a-zA-Z0-9_ -]/s', '', strtoupper(str_replace(' ', '', $sub['value'])));
-					 $submenu  = $this->db->select('*')->from($this->table)->where(array('key'=> $subvalue  ,'level'=>$sub['level'] + 1))->get()->result_array();
+					 $submenu  = $this->db->select('*')->from($this->table)->where(array('key'=> $subvalue  ,'level'=>$sub['level'] + 1))->order_by("value", "asc")->get()->result_array();
 					 $resp[$key]['sub_childs'] = $submenu;
 				}
 			}
@@ -63,7 +62,7 @@ class Menu extends API_Controller
 				'key'=>$data,
 				'level'=>3,
 			);
-			$this->db->select('*')->from($this->table)->where($condition);
+			$this->db->select('*')->from($this->table)->where($condition)->order_by("value", "asc");
 			$menus = $this->db->get()->result_array();
 			$output = array(
 				'status' => true,"data" => $menus
