@@ -13,8 +13,8 @@ class Files extends CI_Model
 			
 			if (move_uploaded_file($file["tmp_name"], $target)) {
 				$uploadOk = true;
-				//return $file_name;
-				return array($file_name, $u_id);
+				return $file_name;
+				//return array($file_name, $u_id);
 			}
 		} catch (Exception $e) {
 			return null;
