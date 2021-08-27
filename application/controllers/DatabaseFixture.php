@@ -296,6 +296,10 @@ function configure_jobs_table(){
         'is_deleted' => array(
             'type' => 'BOOLEAN',
         ),
+        'type' => array(
+           'type' => 'VARCHAR',
+           'constraint' => '100',
+        ),
     );
 
     $state_fields = array(

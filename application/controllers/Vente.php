@@ -38,9 +38,31 @@ class Vente extends API_Controller
 	            	$this->ImageModel->saveImage($array_image);
 	            }
 	        }
-			$this->output
-			        ->set_content_type('application/json')
-			        ->set_output(json_encode(array('status' => true,"data" => "créea avec succès")));
+
+	        $user = $this->UserModel->getUserById($data["user_id"]);
+			
+			$paymentData = array (
+				"entity_type" => "Vente",
+				"entity_id" => $vente_id,
+				"montant" => $this->input->post("montant"),
+				"name" => $user[0]->firstName . " " . $user[0]->lastName
+			);
+			try {
+				$result = $this->Payment->process($paymentData);
+				$this->output
+						->set_content_type('application/json')
+						->set_output(json_encode(array('status' => true,"data" => $result)));
+			} catch (Exception $e) {
+				$this->output
+						->set_content_type('application/json')
+						->set_output(json_encode(array('status' => false,"data" => $e->getMessage())));
+			}
+
+
+
+			// $this->output
+			//         ->set_content_type('application/json')
+			//         ->set_output(json_encode(array('status' => true,"data" => "créea avec succès")));
 		} catch (Exception $e) {
 				$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
 		}
