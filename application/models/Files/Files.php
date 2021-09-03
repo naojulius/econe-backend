@@ -9,6 +9,7 @@ class Files extends CI_Model
 			$file['name'] = $file_name; 
 			$CI = &get_instance();
 			$folder = $imagePath;
+
 			$target = $folder . "/" . $file["name"];
 			
 			if (move_uploaded_file($file["tmp_name"], $target)) {
@@ -16,7 +17,7 @@ class Files extends CI_Model
 				return $file_name;
 				//return array($file_name, $u_id);
 			}
-		} catch (Exception $e) {
+		} catch (Exception $e) { 
 			return null;
 		}
 	}

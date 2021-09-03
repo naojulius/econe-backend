@@ -14,145 +14,145 @@ class DatabaseFixture extends API_Controller
         parent::__construct();
     }
 
-    /**
-     * demo method 
-     *
-     * @link [api/user/demo]
-     * @method POST
-     * @return Response|void
-     */
-    
-
-    /**
-     * Check API Key
-     *
-     * @return key|string
-     */
-    private function key()
-    {
-        // use database query for get valid key
-
-        return 1452;
-    }
+/**
+* demo method 
+*
+* @link [api/user/demo]
+* @method POST
+* @return Response|void
+*/
 
 
-    /**
-     * login method 
-     *
-     * @link [api/user/login]
-     * @method GET
-     * @return Response|void
-     */
-    public function configure()
-    {
-        header("Access-Control-Allow-Origin: *");
-        set_time_limit(500);
-        // API Configuration
-        $this->_apiConfig([
-            'methods' => ['GET'],
-            // 'requireAuthorization' => true,
-        ]);
-        $this->load->dbforge();
-        
-        $this->set_tables();
+/**
+* Check API Key
+*
+* @return key|string
+*/
+private function key()
+{
+// use database query for get valid key
+
+    return 1452;
+}
 
 
-        // return data
-        $this->output
-                    ->set_content_type('application/json')
-                    ->set_output(json_encode(array('status' => true,"data" => "configure")));
-    }
+/**
+* login method 
+*
+* @link [api/user/login]
+* @method GET
+* @return Response|void
+*/
+public function configure()
+{
+    header("Access-Control-Allow-Origin: *");
+    set_time_limit(500);
+// API Configuration
+    $this->_apiConfig([
+        'methods' => ['GET'],
+// 'requireAuthorization' => true,
+    ]);
+    $this->load->dbforge();
 
-    function set_tables(){
-        $this->configure_menu_tables();
-         $this->configure_api_tables();
-        
-         $this->configure_picklist_table();
-       
-         $this->configure_users_table();
-         $this->configure_jobs_table();
-       //  $this->configure_fixture();
-         $this->configure_annonce_table();
-         $this->configure_vente_table();
-         $this->configure_flash_annonce_table();
-         $this->configure_image_table();
-         $this->configure_rencontre_table();
-         
-       //  $this->fake_user();
-        
-       // $this->fake_annonce();
-       // $this->fake_rencontre();
-       // $this->fake_vente();
-       //  $this->fake_flashannonce();
-         $super_admin = array(
-            'user_id'=> "",
-            'email'=>'naojulius.mg@gmail.com',
-            'photo'=>'user.png',
-            'firstName'=> 'NAO',
-            'lastName'=>'julius',
-            'username'=>'naojulius',
-            'password'=> "1230", 
-            'sexe'=>"Homme",
-            );
-        $this->UserModel->saveUser($super_admin);
-
-    }
-
-    public function configure_picklist_table(){
-        $menu_fields = array(
-            'groupe' => array(
-                'type' => 'VARCHAR',
-                'constraint' => '100',
-            ),
-            'value' => array(
-                'type' => 'VARCHAR',
-                'constraint' => '100',
-            ),
-            'is_deleted' => array(
-                'type' => 'BOOLEAN',
-            ),
-        );
-        $this->dbforge->add_field($menu_fields);
-        $this->dbforge->add_field('picklist_id VARCHAR(100) NOT NULL PRIMARY KEY');
-        $this->dbforge->create_table('picklists', true); 
-
-    }
-
-    public function configure_api_tables(){
-        $api_limits = "CREATE TABLE IF NOT EXISTS  `api_limit` (
-        `id` INT NOT NULL AUTO_INCREMENT ,  
-        `user_id` INT NULL DEFAULT NULL ,  
-        `uri` VARCHAR(200) NOT NULL ,  
-        `class` VARCHAR(200) NOT NULL ,  
-        `method` VARCHAR(200) NOT NULL ,  
-        `ip_address` VARCHAR(50) NOT NULL ,  
-        `time` TEXT NOT NULL ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;";
+    $this->set_tables();
 
 
-        $api_keys = "CREATE TABLE IF NOT EXISTS  `api_keys` ( 
-        `id` INT NOT NULL AUTO_INCREMENT ,  
-        `api_key` VARCHAR(50) NOT NULL ,  
-        `controller` VARCHAR(50) NOT NULL ,  
-        `date_created` DATE NULL DEFAULT NULL ,  
-        `date_modified` DATE NULL DEFAULT NULL ,    PRIMARY KEY  (`id`)
-    ) ENGINE = InnoDB;";
-    $this->db->query($api_limits, true);
-    $this->db->query($api_keys, true);
+// return data
+    $this->output
+    ->set_content_type('application/json')
+    ->set_output(json_encode(array('status' => true,"data" => "configure")));
+}
+
+function set_tables(){
+    $this->configure_menu_tables();
+    $this->configure_api_tables();
+
+    $this->configure_picklist_table();
+
+    $this->configure_users_table();
+    $this->configure_jobs_table();
+//  $this->configure_fixture();
+    $this->configure_annonce_table();
+    $this->configure_vente_table();
+    $this->configure_flash_annonce_table();
+    $this->configure_image_table();
+    $this->configure_rencontre_table();
+
+//  $this->fake_user();
+
+// $this->fake_annonce();
+// $this->fake_rencontre();
+// $this->fake_vente();
+//  $this->fake_flashannonce();
+    $super_admin = array(
+        'user_id'=> "",
+        'email'=>'naojulius.mg@gmail.com',
+        'photo'=>'user.png',
+        'firstName'=> 'NAO',
+        'lastName'=>'julius',
+        'username'=>'naojulius',
+        'password'=> "1230", 
+        'sexe'=>"Homme",
+    );
+    $this->UserModel->saveUser($super_admin);
+
+}
+
+public function configure_picklist_table(){
+    $menu_fields = array(
+        'groupe' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+        ),
+        'value' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+        ),
+        'is_deleted' => array(
+            'type' => 'BOOLEAN',
+        ),
+    );
+    $this->dbforge->add_field($menu_fields);
+    $this->dbforge->add_field('picklist_id VARCHAR(100) NOT NULL PRIMARY KEY');
+    $this->dbforge->create_table('picklists', true); 
+
+}
+
+public function configure_api_tables(){
+    $api_limits = "CREATE TABLE IF NOT EXISTS  `api_limit` (
+    `id` INT NOT NULL AUTO_INCREMENT ,  
+    `user_id` INT NULL DEFAULT NULL ,  
+    `uri` VARCHAR(200) NOT NULL ,  
+    `class` VARCHAR(200) NOT NULL ,  
+    `method` VARCHAR(200) NOT NULL ,  
+    `ip_address` VARCHAR(50) NOT NULL ,  
+    `time` TEXT NOT NULL ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;";
+
+
+    $api_keys = "CREATE TABLE IF NOT EXISTS  `api_keys` ( 
+    `id` INT NOT NULL AUTO_INCREMENT ,  
+    `api_key` VARCHAR(50) NOT NULL ,  
+    `controller` VARCHAR(50) NOT NULL ,  
+    `date_created` DATE NULL DEFAULT NULL ,  
+    `date_modified` DATE NULL DEFAULT NULL ,    PRIMARY KEY  (`id`)
+) ENGINE = InnoDB;";
+$this->db->query($api_limits, true);
+$this->db->query($api_keys, true);
 }
 function configure_fixture(){
 
-   $pick = array(
-    'picklist_id'=>'',
-    'groupe'=>'CATEGORY',
-    'value'=>"all"
-);
-   $pick2 = array(
-    'picklist_id'=>'',
-    'groupe'=>'CATEGORY',
-    'value'=>"exemple"
-);
-   $this->PicklistModel->savePickList($pick);
-   $this->PicklistModel->savePickList($pick2);
+    $pick = array(
+        'picklist_id'=>'',
+        'groupe'=>'CATEGORY',
+        'value'=>"all"
+    );
+    $pick2 = array(
+        'picklist_id'=>'',
+        'groupe'=>'CATEGORY',
+        'value'=>"exemple"
+    );
+    $this->PicklistModel->savePickList($pick);
+    $this->PicklistModel->savePickList($pick2);
 }
 
 public function configure_users_table(){
@@ -231,7 +231,7 @@ public function configure_users_table(){
     $this->dbforge->add_field($fields);
     $this->dbforge->add_field('user_id VARCHAR(500) NOT NULL  PRIMARY KEY');
     $this->dbforge->create_table('users', true);
-        // user status
+// user status
     $this->dbforge->add_field($user_status_fields);
     $this->dbforge->add_field('status_id VARCHAR(500) NOT NULL');
     $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (user_id) REFERENCES users(user_id)');
@@ -297,11 +297,11 @@ function configure_jobs_table(){
             'type' => 'BOOLEAN',
         ),
         'type' => array(
-           'type' => 'VARCHAR',
-           'constraint' => '100',
+            'type' => 'VARCHAR',
+            'constraint' => '100',
         ),
     );
-
+//eto
     $state_fields = array(
         'isExpired' => array(
             'type' => 'BOOLEAN',
@@ -324,7 +324,7 @@ function configure_jobs_table(){
     $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (menu_id) REFERENCES menus(menu_id)');
     $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (state_id) REFERENCES state(state_id)');
     $this->dbforge->create_table('jobs', true);
-    
+
     $job_followers_relation_table = array(
         'user_id' => array(
             'type' => 'VARCHAR',
@@ -423,7 +423,7 @@ function configure_annonce_table(){
         'title' => array(
             'type' => 'VARCHAR',
             'constraint' => '100',
-            
+
         ),
         'reference' => array(
             'type' => 'VARCHAR',
@@ -437,7 +437,7 @@ function configure_annonce_table(){
         ),
         'date' => array(
             'type' => 'DATETIME',
-            
+
         ),
         'description' => array(
             'type' => 'TEXT',
@@ -472,7 +472,7 @@ function configure_annonce_table(){
     $this->dbforge->add_field($fields);
     $this->dbforge->add_field('annonce_id VARCHAR(100) NOT NULL PRIMARY KEY');
     $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (user_id) REFERENCES users(user_id)');
-    //$this->dbforge->add_field('CONSTRAINT FOREIGN KEY (category_id) REFERENCES picklists(picklist_id)');
+//$this->dbforge->add_field('CONSTRAINT FOREIGN KEY (category_id) REFERENCES picklists(picklist_id)');
     $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (menu_id) REFERENCES menus(menu_id)');
     $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (state_id) REFERENCES state(state_id)');
 
@@ -498,8 +498,8 @@ function configure_annonce_table(){
 
 }
 public function fake_annonce(){
-     $faker = Faker\Factory::create();
-     $type_annonce_array = array(AnnonceTypeEnum::SERVICE, AnnonceTypeEnum::ANNONCE);
+    $faker = Faker\Factory::create();
+    $type_annonce_array = array(AnnonceTypeEnum::SERVICE, AnnonceTypeEnum::ANNONCE);
     for ($i=0; $i < 100 ; $i++) {
         $rand_type_key = array_rand($type_annonce_array);
 
@@ -522,9 +522,9 @@ public function fake_annonce(){
 
 public function fake_vente(){
     $faker = Faker\Factory::create();
-    // $type_annonce_array = array(AnnonceTypeEnum::SERVICE, AnnonceTypeEnum::ANNONCE);
+// $type_annonce_array = array(AnnonceTypeEnum::SERVICE, AnnonceTypeEnum::ANNONCE);
     for ($i=0; $i < 100 ; $i++) {
-        //$rand_type_key = array_rand($type_annonce_array);
+//$rand_type_key = array_rand($type_annonce_array);
 
         $rand_state = $this->State->getRandom();
         $rand_user =  $this->UserModel->getRandomUser();   
@@ -542,66 +542,66 @@ public function fake_vente(){
     }
 }
 
-    public function configure_image_table(){
-         $images = array(
-                'value' => array(
-                    'type' => 'VARCHAR',
-                    'constraint' => '100',
-                ),
-                'annonce_id' => array(
-                    'type' => 'VARCHAR',
-                    'constraint' => '100',
-                    'null'=>true
-                ),
-                'vente_id' => array(
-                    'type' => 'VARCHAR',
-                    'constraint' => '100',
-                    'null'=>true
-                ),
-                'flashannonce_id' => array(
-                    'type' => 'VARCHAR',
-                    'constraint' => '100',
-                    'null'=>true
-                ),
-            );
-            $this->dbforge->add_field($images);
-            $this->dbforge->add_field('image_id VARCHAR(100) NOT NULL PRIMARY KEY');
-            $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (annonce_id) REFERENCES annonces(annonce_id)');
-             $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (flashannonce_id) REFERENCES flashannonces(flashannonce_id)');
-            $this->dbforge->create_table('images', true); 
-    }
+public function configure_image_table(){
+    $images = array(
+        'value' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+        ),
+        'annonce_id' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+            'null'=>true
+        ),
+        'vente_id' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+            'null'=>true
+        ),
+        'flashannonce_id' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+            'null'=>true
+        ),
+    );
+    $this->dbforge->add_field($images);
+    $this->dbforge->add_field('image_id VARCHAR(100) NOT NULL PRIMARY KEY');
+    $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (annonce_id) REFERENCES annonces(annonce_id)');
+    $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (flashannonce_id) REFERENCES flashannonces(flashannonce_id)');
+    $this->dbforge->create_table('images', true); 
+}
 
-    function configure_vente_table(){
-     $fields = array(
+function configure_vente_table(){
+    $fields = array(
         'title' => array(
             'type' => 'VARCHAR',
             'constraint' => '100',
-            
+
         ),
-         'reference' => array(
+        'reference' => array(
             'type' => 'VARCHAR',
             'constraint' => '100',
-            
+
         ),
-          'description' => array(
+        'description' => array(
             'type' => 'VARCHAR',
             'constraint' => '100',
-            
+
         ),
-          'date' => array(
+        'date' => array(
             'type' => 'DATETIME',
-            
+
         ),
-          'price' => array(
+        'price' => array(
             'type' => 'DECIMAL',
         ),
-          'marque' => array(
+        'marque' => array(
             'type' => 'VARCHAR',
             'constraint' => '100',
-            
+
         ),
 
-        
+
         'state_id' => array(
             'type' => 'VARCHAR',
             'constraint' => '100',
@@ -645,24 +645,24 @@ public function fake_vente(){
     $this->dbforge->create_table('vente_followers', true);
 
 
-    }
-    function configure_rencontre_table(){
-         $fields = array(
+}
+function configure_rencontre_table(){
+    $fields = array(
         'reference' => array(
             'type' => 'VARCHAR',
             'constraint' => '100',
-            
+
         ),
         'description' => array(
             'type' => 'TEXT',
             'constraint' => '250',
-            
+
         ),
         'date' => array(
             'type' => 'DATETIME',
-            
+
         ),
-        
+
         'state_id' => array(
             'type' => 'VARCHAR',
             'constraint' => '100',
@@ -705,51 +705,51 @@ public function fake_vente(){
     $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (rencontre_id) REFERENCES rencontres(rencontre_id)');
     $this->dbforge->create_table('rencontre_followers', true);
 
-    
-    }
-    function fake_rencontre(){
-        $faker = Faker\Factory::create();
-        
 
-        $rand_state = $this->State->getRandom();
-        $rand_user =  $this->UserModel->getRandomUser();   
-        $rand_picklist = $this->PicklistModel->getRandom();
-        for ($i=0; $i < 100; $i++) { 
-           $rencontre = array(
+}
+function fake_rencontre(){
+    $faker = Faker\Factory::create();
+
+
+    $rand_state = $this->State->getRandom();
+    $rand_user =  $this->UserModel->getRandomUser();   
+    $rand_picklist = $this->PicklistModel->getRandom();
+    for ($i=0; $i < 100; $i++) { 
+        $rencontre = array(
             'description' => $faker->realText($maxNbChars = 250, $indexSize = 4) ,
             'state_id' => $rand_state->state_id,
             'user_id' => $rand_user->user_id,
             'category_id'=>$rand_picklist->picklist_id,
-            
-         );
-          $this->RencontreModel->saveRencontre($rencontre); 
-        }
+
+        );
+        $this->RencontreModel->saveRencontre($rencontre); 
     }
-    function configure_flash_annonce_table(){
-     $fields = array(
+}
+function configure_flash_annonce_table(){
+    $fields = array(
         'title' => array(
             'type' => 'VARCHAR',
             'constraint' => '100',
-            
+
         ),
         'reference' => array(
             'type' => 'VARCHAR',
             'constraint' => '100',
-            
+
         ),
-         'link' => array(
+        'link' => array(
             'type' => 'VARCHAR',
             'constraint' => '100',
-            
+
         ),
-          'image' => array(
+        'image' => array(
             'type' => 'VARCHAR',
             'constraint' => '100',
-            
+
         ),
-          'date' => array(
+        'date' => array(
             'type' => 'DATETIME',
-            
+
         ),
         'state_id' => array(
             'type' => 'VARCHAR',
@@ -774,25 +774,25 @@ public function fake_vente(){
     $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (menu_id) REFERENCES menus(menu_id)');
     $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (state_id) REFERENCES state(state_id)');
     $this->dbforge->create_table('flashannonces', true);
-    }
+}
 
-    public function fake_flashannonce(){
-        $faker = Faker\Factory::create();
-        $rand_state = $this->State->getRandom();
-        $rand_user =  $this->UserModel->getRandomUser();   
-        $rand_picklist = $this->PicklistModel->getRandom();
-        for ($i=0; $i < 10; $i++) { 
-           $fls = array(
+public function fake_flashannonce(){
+    $faker = Faker\Factory::create();
+    $rand_state = $this->State->getRandom();
+    $rand_user =  $this->UserModel->getRandomUser();   
+    $rand_picklist = $this->PicklistModel->getRandom();
+    for ($i=0; $i < 10; $i++) { 
+        $fls = array(
             'title'=>$faker->bothify('?????-#####'),
             "image"=> "soarano.png",
             'link' => "https://test_image",
             'state_id' => $rand_state->state_id,
             'user_id' => $rand_user->user_id,
             'menu_id'=>"182C35BC-2DB6-0NCB-E7GF-9E72A75D7654",
-         );
-          $this->FlashAnnonceModel->saveFlashAnnonce($fls); 
-        }
+        );
+        $this->FlashAnnonceModel->saveFlashAnnonce($fls); 
     }
+}
 public function configure_menu_tables(){
     $menus_table = array(
         'level' => array(
@@ -811,5 +811,104 @@ public function configure_menu_tables(){
     $this->dbforge->add_field($menus_table);
     $this->dbforge->add_field('menu_id VARCHAR(100) NOT NULL PRIMARY KEY');
     $this->dbforge->create_table('menus', true);
+}
+
+public function configure_jobs_recrutement_table(){
+
+    // API Configuration
+    $this->_apiConfig([
+        'methods' => ['GET'],
+            // 'requireAuthorization' => true,
+        ]);
+    $this->load->dbforge();
+
+    $jobs_fields = array(
+        'reference' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+        ), 
+
+        'image' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+        ),
+        'cv' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+        ),
+        'firstName' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+        ),
+        'lastName' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+        ),
+        'lastName' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+        ),
+        'age' => array(
+            'type' => 'INT',
+        ),
+        'address' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+        ),
+        'email' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+        ),
+        'wantedPost' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+        ),
+        'skill' => array(
+            'type' => 'TEXT',
+        ),
+        'wageClaim' => array(
+            'type' => 'DECIMAL',
+        ),
+        'disponnibility' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+        ),
+        'recentExpertience' => array(
+            'type' => 'TEXT',
+        ),
+        'coverLetter' => array(
+            'type' => 'TEXT',
+        ),
+
+        'user_id' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+        ),
+        'menu_id' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+        ),
+        'is_deleted' => array(
+            'type' => 'BOOLEAN',
+        ),
+        'state_id' => array(
+            'type' => 'VARCHAR',
+            'constraint' => '100',
+
+        ),
+        'date' => array(
+            'type' => 'DATETIME',
+        ),
+    );
+    $this->dbforge->add_field($jobs_fields);
+    $this->dbforge->add_field('job_candidature_id VARCHAR(100) NOT NULL PRIMARY KEY');
+    $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (user_id) REFERENCES users(user_id)');
+    $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (menu_id) REFERENCES menus(menu_id)');
+    $this->dbforge->add_field('CONSTRAINT FOREIGN KEY (state_id) REFERENCES state(state_id)');
+    $this->dbforge->create_table('job_candidatures', true);
+// return data
+    $this->output
+    ->set_content_type('application/json')
+    ->set_output(json_encode(array('status' => true,"data" => "configure")));
 }
 }

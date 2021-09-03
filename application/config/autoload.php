@@ -142,6 +142,7 @@ $autoload['model'] = array(
 	"State/State",
 	"Job/JobModel",
 	"Job/JobTable",
+	"Job/JobCandidatureTable",
 	"Hash/TextHash",
 	"Follower/JobFollower",
 	"Follower/AnnonceFollower",

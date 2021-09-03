@@ -28,6 +28,31 @@ class JobModel extends CI_Model
 		unset($job[0]['menu_id']);
 		return $job;
 	}
+	public function getJobCandidatureById($id){
+		$condition = array(
+			'job_candidature_id'=> $id,
+			'is_deleted'=>false
+		);
+		$this->db->where($condition)->select('*')->from("job_candidatures");
+		$job = $this->db->get()->result_array();
+		if(!$job){
+			return null;exit;
+		}
+
+		// $followers = $this->JobFollower->getFollowersNumberByJobId($job[0]['job_candidature_id']);
+		// if($followers){
+		// 	$job[0]['follower_number'] = $followers;
+		// }else{
+		// 	$job[0]['follower_number'] = 0;
+		// }
+		$job[0]['owner'] = $this->UserModel->getUserById($job[0]['user_id']);
+		$job[0]['state'] = $this->State->getStatebyId($job[0]['state_id']);
+		$job[0]['category'] = $this->PicklistModel->getById($job[0]['menu_id']);
+		unset($job[0]['user_id']);
+		unset($job[0]['state_id']);
+		unset($job[0]['menu_id']);
+		return $job;
+	}
 	public function getUserJobsByUserId($id){
 		$condition = array(
 			'user_id'=> $id,
@@ -124,4 +149,21 @@ class JobModel extends CI_Model
 		$this->db->where('job_id', $id);
 		$this->db->update($this->table, $data);
 	}
+
+	/*
+		sauvegarde de la candidature
+	*/
+		public function saveJobCandidature($data){
+			$u_id = $this->Guid->newGuid();
+			$data['job_candidature_id'] = $u_id;
+			$data['date'] = date("Y/m/d h:i:sa");
+			$data['state_id'] = "4E91B75B-D204-7186-744F-9BCFA91FDF55";
+			$data['menu_id']  = "1J5Z16BC-8HK7-0NGC-E4DF-9RN2V7AD7959";
+
+			//$data['user_id'] = "C978A66F-48BF-0471-A93F-36E50940B705";
+			$data['reference'] = $this->Reference->new();
+			unset($data['montant']);
+			$resp = $this->db->insert("job_candidatures", $data);
+			return $u_id;
+		}
 }

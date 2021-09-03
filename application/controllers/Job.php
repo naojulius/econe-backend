@@ -11,6 +11,63 @@ class Job extends API_Controller
 	public function __construct() {
 		parent::__construct();
 	}
+	public function candidature(){
+		$this->_apiConfig([
+			'methods' => ['POST'],
+			 'requireAuthorization' => $this->requireAuthorization,
+		]);
+
+		try {
+			if ($this->input->post("JsonBody") == false) {
+           		$this->api_return(['status' => true,"data" => "donées manquante",],404);exit;
+			}
+			
+			if ($this->input->post("montant") == false) {
+				$this->api_return(['status' => true,"data" => "donées manquante",],404);exit;
+		 	}
+	        $data = json_decode($this->input->post("JsonBody"), true);
+			
+			if (count($_FILES) > 0) {
+	            foreach ($_FILES as $file) {
+					$allowed_extention = array("jpeg","jpg","png", "svg"); 
+					if (in_array(strtolower(pathinfo($file['name'], PATHINFO_EXTENSION)), $allowed_extention)) {
+						     $files_ = $this->Files->upload($file, FCPATH . "documents/_uploads/images");
+						     $data['image'] = $files_;
+					}else{
+							 $files_ = $this->Files->upload($file,  FCPATH . "documents/_uploads/files");
+							 $data['cv'] = $files_;
+					}
+	            }
+			}
+			
+			$job_id = $this->JobModel->saveJobCandidature($data);
+			$user = $this->UserModel->getUserById($data["user_id"]);
+			if($user){
+				$fullname = $user[0]->firstName . " " . $user[0]->lastName;
+			}else{
+				$fullname = "e-cone.mg";
+			}
+			$paymentData = array (
+				"entity_type" => "Job",
+				"entity_id" => $job_id,
+				"montant" => $this->input->post("montant"),
+				"name" => $fullname,
+			);
+			try {
+				$result = $this->Payment->process($paymentData);
+				$this->output
+						->set_content_type('application/json')
+						->set_output(json_encode(array('status' => true,"data" => $result)));
+			} catch (Exception $e) {
+				$this->output
+						->set_content_type('application/json')
+						->set_output(json_encode(array('status' => false,"data" => $e->getMessage())));
+			}
+
+		} catch (Exception $e) {
+				$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
+		}
+	}
 	public function new()
 	{
 		$this->CorsOrigin->Allow();
@@ -136,6 +193,23 @@ class Job extends API_Controller
 	      "draw" => intval($_POST["draw"]),
 	      "recordsTotal" => $this->JobTable->get_all_data(),
 	      "recordsFiltered" => $this->JobTable->get_filtered_data(),
+	      "data" => $data    
+	    );    
+	   $this->output
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $output)));
+	}
+	public function jobCandidatureTable(){
+		$fetch_data = $this->JobCandidatureTable->make_datatables();
+	    $data = array();
+	    foreach($fetch_data as $row){
+	      $sub_array = $this->JobModel->getJobCandidatureById($row->job_candidature_id)[0];
+	      $data[] = $sub_array;    
+	    }
+	    $output = array(
+	      "draw" => intval($_POST["draw"]),
+	      "recordsTotal" => $this->JobCandidatureTable->get_all_data(),
+	      "recordsFiltered" => $this->JobCandidatureTable->get_filtered_data(),
 	      "data" => $data    
 	    );    
 	   $this->output

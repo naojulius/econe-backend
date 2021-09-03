@@ -17,6 +17,7 @@ $route['api/job/demo'] = 'databaseFixture/getJobDemo';
 
 
 $route['api/job/new']  = 'job/new'; //POST
+$route['api/job/candidature']  = 'job/candidature'; //Multipart
 $route['api/job/delete'] = 'job/delete'; //POST
 $route['api/job/get'] = 'job/getById'; //GET BY ID
 $route['api/job/user/get'] = 'job/getByOwner'; //GET USER jobs
@@ -24,6 +25,7 @@ $route['api/job/delete'] = 'job/deleteById'; //DELETE BY ID
 $route['api/job/follow'] = 'follower/followJob'; //POST
 $route['api/job/unfollow'] = 'follower/unfollowJob'; //POST
 $route['api/job/all'] = "job/jobTable";
+$route['api/job/candidature/all'] = "job/jobCandidatureTable";
 $route['api/job/number'] = "job/JobByLimit";
 /*
     picklists
@@ -91,5 +93,12 @@ menu
 */
 $route['api/menu/get'] = "menu/getByKey";
 $route['api/menu/groupe'] = "menu/getByGroupe";
+
+
+
+/*
+   Configure fixture
+*/
+ $route['api/fixture/candidature'] = 'databaseFixture/configure_jobs_recrutement_table'; 
 
 
