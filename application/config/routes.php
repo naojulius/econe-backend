@@ -43,6 +43,7 @@ $route['api/annonce/follow'] =  'follower/followAnnonce'; //POST
 $route['api/annonce/unfollow'] = 'follower/unfollowAnnonce'; //POST
 $route['api/annonce/all'] = "annonce/annonceTable";
 $route['api/annonce/number'] = "annonce/AnnonceByLimit";
+
  /*
     rencontres
  */
@@ -79,5 +80,10 @@ $route['api/user/get']  = 'auth/getById';
 /*
    flash annonces
 */
+
+   /*
+   menu
+   */
+   $route['api/menu/get'] = "menu/getByKey";
 
 $route['api/flashannonce/number'] = "flashAnnonce/FlashAnnonceByLimit";

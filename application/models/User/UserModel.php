@@ -13,7 +13,7 @@ class UserModel extends CI_Model
 		return $this->db->get()->result();
 	}
 	public function getUserById($id){
-		$this->db->where('user_id', $id)->select('user_id, username, email, photo, firstName, lastName, nationality, birthDate, sexe')->from($this->table);
+		$this->db->where('user_id', $id)->select('user_id, username, email, photo, firstName, lastName, nationality, birthDate, sexe, phone')->from($this->table);
 		return $this->db->get()->result();
 	}
 	public function saveUser($data){
