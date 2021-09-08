@@ -17,6 +17,7 @@ $route['api/job/demo'] = 'databaseFixture/getJobDemo';
 
 
 $route['api/job/new']  = 'job/new'; //POST
+$route['api/job/candidature']  = 'job/candidature'; //Multipart
 $route['api/job/delete'] = 'job/delete'; //POST
 $route['api/job/get'] = 'job/getById'; //GET BY ID
 $route['api/job/user/get'] = 'job/getByOwner'; //GET USER jobs
@@ -24,6 +25,7 @@ $route['api/job/delete'] = 'job/deleteById'; //DELETE BY ID
 $route['api/job/follow'] = 'follower/followJob'; //POST
 $route['api/job/unfollow'] = 'follower/unfollowJob'; //POST
 $route['api/job/all'] = "job/jobTable";
+$route['api/job/candidature/all'] = "job/jobCandidatureTable";
 $route['api/job/number'] = "job/JobByLimit";
 /*
     picklists
@@ -67,7 +69,11 @@ $route['api/vente/unfollow'] = 'follower/unfollowVente'; //POST
 $route['api/vente/all'] = "vente/venteTable"; //POST
 $route['api/vente/number'] = "vente/VenteByLimit";
 
-$route['api/payments/process'] = "PaiementController/validerAchat";
+// Paiement.
+$route['payment/process'] = "PaiementController/validerAchat"; // Procéder à un paiement
+$route['payment/notif'] = "PaiementController/paimentNotif";
+$route['payment/success'] = "PaiementController/paimentSuccess";
+$route['payment/echec'] = "PaiementController/paimentFailed";
 
 /*
    authentications 
@@ -75,15 +81,33 @@ $route['api/payments/process'] = "PaiementController/validerAchat";
 $route['api/auth/login']  = 'auth/login';
 $route['api/auth/registration']  = 'auth/new';
 $route['api/user/get']  = 'auth/getById';
+$route['api/user/all']  = 'auth/getAllUser';
 
 
 /*
    flash annonces
 */
+<<<<<<< HEAD
 
    /*
    menu
    */
    $route['api/menu/get'] = "menu/getByKey";
 
+=======
+>>>>>>> 2b309889fae5af2a894ea3104a350db9f6622758
 $route['api/flashannonce/number'] = "flashAnnonce/FlashAnnonceByLimit";
+/*
+menu
+*/
+$route['api/menu/get'] = "menu/getByKey";
+$route['api/menu/groupe'] = "menu/getByGroupe";
+
+
+
+/*
+   Configure fixture
+*/
+ $route['api/fixture/candidature'] = 'databaseFixture/configure_jobs_recrutement_table'; 
+
+

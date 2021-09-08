@@ -1,30 +1,26 @@
 <?php 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
-class JobTable extends CI_Model
+class UserTable extends CI_Model
 {
-	var $table = "jobs";
+	var $table = "users";
 	var $select_column = array("*");
 	var $order_column = array(null, null, null, null,null , null);
-	var $condition = array("text"=>StateEnum::PAYED_NOT_EXPIRED);
 	function make_query(){
 		$this->db->select($this->select_column)->order_by('rand()');
-		$this->db->join('state', 'state.state_id=jobs.state_id');
-		$this->db->where($this->condition);
 		$this->db->from($this->table);
-		if($_POST["search"]["value"]){
-			$this->db->like('poste', $_POST["search"]["value"]);
-			$this->db->or_like('description', $_POST["search"]["value"]);
-			$this->db->or_like('society', $_POST["search"]["value"]);  
+		if(isset($_POST["search"]["value"])){
+			$this->db->like('username', $_POST["search"]["value"]);
+			$this->db->or_like('firstName', $_POST["search"]["value"]);
 
 		}
 		if(isset($_POST["order"])){
 			$this->db->order_by($this->order_column[$_POST["order"]["0"]["column"]], $_POST["order"]["0"]["dir"]);
 		}else{
-			$this->db->order_by('date', 'DESC');
+			$this->db->order_by('user_id', 'DESC');
 		}
 		if(isset($_POST["filter_category"]["name"])){
-			$this->db->like('poste', $_POST["filter_category"]["name"]);
-			$this->db->or_like('society', $_POST["search"]["value"]);
+			$this->db->like('username', $_POST["filter_category"]["name"]);
+			$this->db->or_like('firstName', $_POST["search"]["value"]);
 		}
 	}
 	function make_datatables(){

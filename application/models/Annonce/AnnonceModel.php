@@ -15,18 +15,18 @@ class AnnonceModel extends CI_Model
 		}
 
 		$followers = $this->AnnonceFollower->getFollowersNumberByAnnonceId($annonce[0]['annonce_id']);
-		if($followers){
+		if($followers){ 
 			$annonce[0]['follower_number'] = $followers;
 		}else{
 			$annonce[0]['follower_number'] = 0;
 		}
 		$annonce[0]['owner'] = $this->UserModel->getUserById($annonce[0]['user_id']);
 		$annonce[0]['state'] = $this->State->getStatebyId($annonce[0]['state_id']);
-		$annonce[0]['category'] = $this->PicklistModel->getById($annonce[0]['category_id']);
+		$annonce[0]['category'] = $this->MenuModel->getById($annonce[0]['menu_id']);
 		$annonce[0]['images'] = $this->ImageModel->getAnnonceImageByAnnonceId($annonce[0]['annonce_id']);
 		unset($annonce[0]['user_id']);
 		unset($annonce[0]['state_id']);
-		unset($annonce[0]['category_id']);
+		unset($annonce[0]['menu_id']);
 		return $annonce;
 	}
 	public function getUserAnnoncesByUserId($id){
@@ -41,10 +41,10 @@ class AnnonceModel extends CI_Model
 			$annonce->owner = $this->UserModel->getUserById($annonce->user_id);
 			$annonce->state = $this->State->getStatebyId($annonce->state_id);
 			$annonce->follower_number = $this->AnnonceFollower->getFollowersNumberByAnnonceId($annonce->annonce_id);
-			$annonce->category = $this->PicklistModel->getById($annonce->category_id);
+			$annonce->category = $this->PicklistModel->getById($annonce->menu_id);
 			unset($annonce->user_id);
 			unset($annonce->state_id);
-			unset($annonce->category_id);
+			unset($annonce->menu_id);
 			array_push($response, $annonce);
 		}
 		return $response;
@@ -53,11 +53,32 @@ class AnnonceModel extends CI_Model
 		$u_id = $this->Guid->newGuid();
 		$data['annonce_id'] = $u_id;
 		$data['date'] = date("Y/m/d h:i:sa");
-		$data['state_id'] = "2E91A75B-D204-7186-743F-9BCFA91FDF55";
+		$data['state_id'] = "4E91B75B-D204-7186-744F-9BCFA91FDF55";
 		$data['reference'] = $this->Reference->new();
 		$resp = $this->db->insert($this->table, $data);
 		return $u_id;
 	}
+
+	/**
+	 * Mettre à jour l'annonce pour avoir un nouveau statut
+	 */
+	public function updateAnnonceState($id, $statusText)
+	{
+		if ($statusText === "PAYED_NOT_EXPIRED") {
+			$statusId = '5D7E4A1C-5EFE-CE4D-4FE3-C273F52FBA26';
+		} else if ($statusText === "PAYED_EXPIRED") {
+			$statusId = "962A9106-4EEF-51C9-EEA8-B3D32018CC4C";
+		} else if ($statusText === "EXPIRED_NOT_PAYED") {
+			$statusId = "C6F4B459-6F90-D959-F2FC-890A0E63C7FE";
+		}
+		$data = array(
+			'state_id' => $statusId
+		);
+
+		$this->db->where('annonce_id', $id);
+		$this->db->update($this->table, $data);
+	}
+
 	public function deleteAnnonceById($id){
 		$data = array(
 			'is_deleted' => true
@@ -79,10 +100,10 @@ class AnnonceModel extends CI_Model
 			$annonce->owner = $this->UserModel->getUserById($annonce->user_id);
 			$annonce->state = $this->State->getStatebyId($annonce->state_id);
 			$annonce->follower_number = $this->AnnonceFollower->getFollowersNumberByAnnonceId($annonce->annonce_id);
-			$annonce->category = $this->PicklistModel->getById($annonce->category_id);
+			$annonce->category = $this->PicklistModel->getById($annonce->menu_id);
 			unset($annonce->user_id);
 			unset($annonce->state_id);
-			unset($annonce->category_id);
+			unset($annonce->menu_id);
 			array_push($response, $annonce);
 		}
 		return $response;
@@ -103,11 +124,11 @@ class AnnonceModel extends CI_Model
 			$annonce->owner = $this->UserModel->getUserById($annonce->user_id);
 			$annonce->state = $this->State->getStatebyId($annonce->state_id);
 			$annonce->follower_number = $this->AnnonceFollower->getFollowersNumberByAnnonceId($annonce->annonce_id);
-			$annonce->category = $this->PicklistModel->getById($annonce->category_id);
+			$annonce->category = $this->PicklistModel->getById($annonce->menu_id);
 			$annonce->images = $this->ImageModel->getAnnonceImageByAnnonceId($annonce->annonce_id);
 			unset($annonce->user_id);
 			unset($annonce->state_id);
-			unset($annonce->category_id);
+			unset($annonce->menu_id);
 			array_push($response, $annonce);
 		}
 		return $response;

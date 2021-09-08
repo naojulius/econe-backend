@@ -3,6 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET");
 header("Access-Control-Allow-Headers: Authorization, Content-Type");
 require_once APPPATH . 'libraries/API_Controller.php';
+require_once APPPATH.'enumerations/StateEnum.php';
 
 class Annonce extends API_Controller
 {
@@ -62,10 +63,7 @@ class Annonce extends API_Controller
 						->set_content_type('application/json')
 						->set_output(json_encode(array('status' => false,"data" => $e->getMessage())));
 			}
-			
-			// $this->output
-			//         ->set_content_type('application/json')
-			//         ->set_output(json_encode(array('status' => true,"data" => "crée avec succès")));
+
 		} catch (Exception $e) {
 				$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
 		}

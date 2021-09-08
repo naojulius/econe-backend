@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database', 'Authorization_Token');
+$autoload['libraries'] = array('database', 'Authorization_Token',);
 
 /*
 | -------------------------------------------------------------------
@@ -136,11 +136,13 @@ $autoload['model'] = array(
 	"Utils/Guid/Guid",
 	"Utils/CorsOrigin/CorsOrigin",
 	"User/UserModel",
+	"User/UserTable",
 	"Utils/HTTP_RESPONSE/HttpResponse",
 	"Utils/Reference/Reference",
 	"State/State",
 	"Job/JobModel",
 	"Job/JobTable",
+	"Job/JobCandidatureTable",
 	"Hash/TextHash",
 	"Follower/JobFollower",
 	"Follower/AnnonceFollower",
@@ -157,5 +159,6 @@ $autoload['model'] = array(
 	"Rencontre/RencontreModel",
 	"Vente/VenteModel",
 	"Vente/VenteTable",
-	"Payment/Payment"
+	"Payment/Payment",
+	"Menu/MenuModel"
 );
