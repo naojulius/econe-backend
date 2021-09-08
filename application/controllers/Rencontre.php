@@ -30,7 +30,7 @@ class Rencontre extends API_Controller
 				$paymentData = array (
 					"entity_type" => "Rencontre",
 					"entity_id" => $rencontre_id,
-					"montant" => $this->input->post("montant"),
+					"montant" => $data["montant"],
 					"name" => $user[0]->firstName . " " . $user[0]->lastName
 				);
 				try {

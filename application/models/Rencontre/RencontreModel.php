@@ -57,7 +57,7 @@ class RencontreModel extends CI_Model
 		$data['state_id'] = "4E91B75B-D204-7186-744F-9BCFA91FDF55";
 		unset($data['montant']);
 		$resp = $this->db->insert($this->table, $data);
-		return $resp;
+		return $u_id;
 	}
 	public function deleteRencontreById($id){
 		$data = array(
