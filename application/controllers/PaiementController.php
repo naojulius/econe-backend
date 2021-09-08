@@ -42,7 +42,7 @@ class PaiementController extends API_Controller {
 			'requireAuthorization' => $this->requireAuthorization,
         ]);
 
-        $this->AnnonceModel->updateAnnonceState("05D6CF0C-B058-FFA7-EFD6-F1748D1E8648" , "PAYED_NOT_EXPIRED");
+        // $this->AnnonceModel->updateAnnonceState("05D6CF0C-B058-FFA7-EFD6-F1748D1E8648" , "PAYED_NOT_EXPIRED");
 
         $this->load->library('Util');
 		// $this->load->library('Paiement'); 05D6CF0C-B058-FFA7-EFD6-F1748D1E8648

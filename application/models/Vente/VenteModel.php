@@ -73,6 +73,10 @@ class VenteModel extends CI_Model
 	}
 	public function getVenteByLimit($limit){
 		$this->db->select('*')->from($this->table)->limit($limit);
+		$condition = array("text"=>StateEnum::PAYED_NOT_EXPIRED);
+
+		$this->db->join('state', 'state.state_id=ventes.state_id');
+		$this->db->where($condition);
 		$data = $this->db->get()->result();
 		$response = array();
 		foreach ($data as $vente) {
