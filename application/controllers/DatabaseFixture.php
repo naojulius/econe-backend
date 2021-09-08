@@ -792,10 +792,7 @@ public function fake_flashannonce(){
         );
         $this->FlashAnnonceModel->saveFlashAnnonce($fls); 
     }
-<<<<<<< HEAD
-=======
 }
->>>>>>> 2b309889fae5af2a894ea3104a350db9f6622758
 public function configure_menu_tables(){
     $menus_table = array(
         'level' => array(
@@ -815,8 +812,6 @@ public function configure_menu_tables(){
     $this->dbforge->add_field('menu_id VARCHAR(100) NOT NULL PRIMARY KEY');
     $this->dbforge->create_table('menus', true);
 }
-<<<<<<< HEAD
-=======
 
 public function configure_jobs_recrutement_table(){
 
@@ -916,5 +911,4 @@ public function configure_jobs_recrutement_table(){
     ->set_content_type('application/json')
     ->set_output(json_encode(array('status' => true,"data" => "configure")));
 }
->>>>>>> 2b309889fae5af2a894ea3104a350db9f6622758
 }

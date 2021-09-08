@@ -87,15 +87,6 @@ $route['api/user/all']  = 'auth/getAllUser';
 /*
    flash annonces
 */
-<<<<<<< HEAD
-
-   /*
-   menu
-   */
-   $route['api/menu/get'] = "menu/getByKey";
-
-=======
->>>>>>> 2b309889fae5af2a894ea3104a350db9f6622758
 $route['api/flashannonce/number'] = "flashAnnonce/FlashAnnonceByLimit";
 /*
 menu

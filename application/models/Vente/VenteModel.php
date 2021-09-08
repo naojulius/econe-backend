@@ -22,11 +22,11 @@ class VenteModel extends CI_Model
 		}
 		$vente[0]['owner'] = $this->UserModel->getUserById($vente[0]['user_id']);
 		$vente[0]['state'] = $this->State->getStatebyId($vente[0]['state_id']);
-		$vente[0]['category'] = $this->MenuModel->getById($vente[0]['menu_id']);
+		//$vente[0]['category'] = $this->MenuModel->getById($vente[0]['menu_id']);
 		$vente[0]['images'] = $this->ImageModel->getVenteImageByVenteId($vente[0]['vente_id']); 
 		unset($vente[0]['user_id']);
 		unset($vente[0]['state_id']);
-		unset($vente[0]['menu_id']);
+		//unset($vente[0]['menu_id']);
 		return $vente;
 	}
 	public function getUserVentesByUserId($id){
