@@ -7,9 +7,10 @@ class JobTable extends CI_Model
 	var $order_column = array(null, null, null, null,null , null);
 	var $condition = array("text"=>StateEnum::PAYED_NOT_EXPIRED);
 	function make_query(){
-		$this->db->select($this->select_column)->order_by('rand()');
+		$this->db->select($this->select_column);
 		$this->db->join('state', 'state.state_id=jobs.state_id');
 		$this->db->where($this->condition);
+		$this->db->order_by('date','DESC');
 		$this->db->from($this->table);
 		if($_POST["search"]["value"]){
 			$this->db->like('poste', $_POST["search"]["value"]);

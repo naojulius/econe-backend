@@ -104,21 +104,21 @@ class FlashAnnonce extends API_Controller
 	// 	}
 	// }
 
-	// public function annonceTable(){
-	// 	$fetch_data = $this->AnnonceTable->make_datatables();
-	//     $data = array();
-	//     foreach($fetch_data as $row){
-	//       $sub_array = $this->AnnonceModel->getAnnonceById($row->annonce_id)[0];
-	//       $data[] = $sub_array;    
-	//     }
-	//     $output = array(
-	//       "draw" => intval($_POST["draw"]),
-	//       "recordsTotal" => $this->AnnonceTable->get_all_data(),
-	//       "recordsFiltered" => $this->AnnonceTable->get_filtered_data(),
-	//       "data" => $data    
-	//     );    
-	//     $this->api_return(['status' => false,"data" =>$output,],200);exit;
-	// }
+	public function FlashAnnonceTable(){
+		$fetch_data = $this->FlashAnnonceTable->make_datatables();
+	    $data = array();
+	    foreach($fetch_data as $row){
+	      $sub_array = $this->FlashAnnonceModel->getFlashAnnonceById($row->flashannonce_id)[0];
+	      $data[] = $sub_array;    
+	    }
+	    $output = array(
+	      "draw" => intval($_POST["draw"]),
+	      "recordsTotal" => $this->FlashAnnonceTable->get_all_data(),
+	      "recordsFiltered" => $this->FlashAnnonceTable->get_filtered_data(),
+	      "data" => $data    
+	    );    
+	    $this->api_return(['status' => false,"data" =>$output,],200);exit;
+	}
 
 	public function FlashAnnonceByLimit(){
 	   $this->CorsOrigin->Allow();

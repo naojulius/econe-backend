@@ -1,9 +1,8 @@
 <?php 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
-
-class RencontreTable extends CI_Model
+class FlashAnnonceTable extends CI_Model
 {
-	var $table = "rencontres";
+	var $table = "flashannonces";
 	var $select_column = array("*");
 	var $order_column = array(null, null, null, null,null , null);
 	var $condition = array("text"=>StateEnum::PAYED_NOT_EXPIRED);
@@ -11,23 +10,22 @@ class RencontreTable extends CI_Model
 		$this->db->select($this->select_column);
 		$this->db->order_by('date','DESC');
 		$this->db->from($this->table);
-		$this->db->join('users', 'users.user_id=rencontres.user_id');
-		$this->db->join('state', 'state.state_id=rencontres.state_id');
-		$this->db->where($this->condition);
+		$this->db->join('state', 'state.state_id=flashannonces.state_id');
+		//$this->db->join('menus', 'menus.menu_id=annonces.menu_id');
+		//$this->db->where($this->condition);
 		if($_POST["search"]["value"]){
-			$this->db->like('sexe', $_POST["search"]["value"]);
-			$this->db->or_like('description', $_POST["search"]["value"]);
-			$this->db->or_like('reference', $_POST["search"]["value"]);
-
+				// $this->db->like('title', $_POST["search"]["value"]);
+				// $this->db->or_like('description', $_POST["search"]["value"]);
+				//$this->db->or_like('value', $_POST["search"]["value"]); 
 		}
 		if(isset($_POST["order"])){
 			$this->db->order_by($this->order_column[$_POST["order"]["0"]["column"]], $_POST["order"]["0"]["dir"]);
 		}else{
 			$this->db->order_by('date', 'DESC');
 		}
-		if(isset($_POST["filter"]["name"])){
-			$this->db->like('sexe', $_POST["filter"]["name"]);
-			$this->db->or_like('phone', $_POST["filter"]["name"]);
+		if(isset($_POST["filter_category"]["name"])){
+			$this->db->like('marque', $_POST["filter_category"]["name"]);
+			$this->db->or_like('description', $_POST["search"]["value"]);
 		}
 	}
 	function make_datatables(){
@@ -47,10 +45,9 @@ class RencontreTable extends CI_Model
 	function get_all_data(){
 		$this->db->select('*');
 		$this->db->from($this->table);
-		$this->db->join('users', 'users.user_id=rencontres.user_id');
-		$this->db->join('state', 'state.state_id=rencontres.state_id');
-		$this->db->where($this->condition);
 		return $this->db->count_all_results();
+		$this->db->join('state', 'state.state_id=annonces.state_id');
+		$this->db->where($this->condition);
 	}
 }
 

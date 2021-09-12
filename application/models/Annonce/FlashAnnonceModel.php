@@ -3,32 +3,33 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 class FlashAnnonceModel extends CI_Model
 {
 	var $table = "flashannonces";
-	// public function getFlashAnnonceById ($id){
-	// 	$condition = array(
-	// 		'annonce_id'=> $id,
-	// 		'is_deleted'=>false
-	// 	);
-	// 	$this->db->where($condition)->select('*')->from($this->table);
-	// 	$annonce = $this->db->get()->result_array();
-	// 	if(!$annonce){
-	// 		return null;exit;
-	// 	}
+	public function getFlashAnnonceById ($id){
+		$condition = array(
+			'flashannonce_id'=> $id,
+			//'is_deleted'=>false
+		);
+		$this->db->where($condition)->select('*')->from($this->table);
+		$flashannonce = $this->db->get()->result_array();
+		if(!$flashannonce){
+			return null;
+		}
 
-	// 	$followers = $this->AnnonceFollower->getFollowersNumberByAnnonceId($annonce[0]['annonce_id']);
-	// 	if($followers){
-	// 		$annonce[0]['follower_number'] = $followers;
-	// 	}else{
-	// 		$annonce[0]['follower_number'] = 0;
-	// 	}
-	// 	$annonce[0]['owner'] = $this->UserModel->getUserById($annonce[0]['user_id']);
-	// 	$annonce[0]['state'] = $this->State->getStatebyId($annonce[0]['state_id']);
-	// 	$annonce[0]['category'] = $this->PicklistModel->getById($annonce[0]['category_id']);
-	// 	$annonce[0]['images'] = $this->ImageModel->getAnnonceImageByAnnonceId($annonce[0]['annonce_id']);
-	// 	unset($annonce[0]['user_id']);
-	// 	unset($annonce[0]['state_id']);
-	// 	unset($annonce[0]['category_id']);
-	// 	return $annonce;
-	// }
+		// $followers = $this->AnnonceFollower->getFollowersNumberByAnnonceId($annonce[0]['annonce_id']);
+		// if($followers){
+		// 	$annonce[0]['follower_number'] = $followers;
+		// }else{
+		// 	$annonce[0]['follower_number'] = 0;
+		// }
+		// $annonce[0]['owner'] = $this->UserModel->getUserById($annonce[0]['user_id']);
+		 $flashannonce[0]['state'] = $this->State->getStatebyId($flashannonce[0]['state_id']);
+		// $annonce[0]['category'] = $this->PicklistModel->getById($annonce[0]['category_id']);
+		//$annonce[0]['images'] = $this->ImageModel->getAnnonceImageByAnnonceId($annonce[0]['annonce_id']);
+		unset($flashannonce[0]['user_id']);
+		unset($flashannonce[0]['state_id']);
+		unset($flashannonce[0]['category_id']);
+		unset($flashannonce[0]['menu_id']);
+		return $flashannonce;
+	}
 	// public function getUserAnnoncesByUserId($id){
 	// 	$condition = array(
 	// 		'user_id'=> $id,

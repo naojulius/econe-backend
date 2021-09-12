@@ -8,7 +8,8 @@ class AnnonceTable extends CI_Model
 	var $condition = array("text"=>StateEnum::PAYED_NOT_EXPIRED);
 	function make_query(){
 		$this->db->select($this->select_column);
-		$this->db->from($this->table)->order_by('rand()');
+		$this->db->order_by('date','DESC');
+		$this->db->from($this->table);
 		$this->db->join('state', 'state.state_id=annonces.state_id');
 		$this->db->join('menus', 'menus.menu_id=annonces.menu_id');
 		$this->db->where($this->condition);

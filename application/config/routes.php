@@ -88,6 +88,7 @@ $route['api/user/all']  = 'auth/getAllUser';
    flash annonces
 */
 $route['api/flashannonce/number'] = "flashAnnonce/FlashAnnonceByLimit";
+$route['api/flashannonce/all'] = "flashAnnonce/FlashAnnonceTable";
 /*
 menu
 */

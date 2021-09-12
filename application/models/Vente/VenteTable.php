@@ -9,9 +9,11 @@ class VenteTable extends CI_Model
 	function make_query(){
 		$this->db->where($this->condition);
 		$this->db->select("*");
+		$this->db->order_by('date','DESC');
 		$this->db->from('ventes'); //->order_by('rand()');
 		$this->db->join("menus", "menus.menu_id=ventes.menu_id",);
 		$this->db->join("state", "state.state_id=ventes.state_id");
+
 		if($_POST["search"]["value"]){
 			$this->db->like('title', $_POST["search"]["value"]);
 			$this->db->or_like('description', $_POST["search"]["value"]);

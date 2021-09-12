@@ -153,6 +153,7 @@ $autoload['model'] = array(
 	"Annonce/AnnonceModel",
 	"Annonce/AnnonceImage",
 	"Annonce/AnnonceTable",
+	"Annonce/FlashAnnonceTable",
 	"Annonce/FlashAnnonceModel",
 	"Rencontre/RencontreTable",
 	"Image/ImageModel",

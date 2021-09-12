@@ -35,7 +35,8 @@ class Auth extends API_Controller
 			}
 			$payload = [
 				'user_id' => $user[0]->user_id,
-				'username' => $user[0]->username
+				'username' => $user[0]->username,
+				'role'=>$user[0]->role,
 			];
 		$token = $this->authorization_token->generateToken($payload);
 		$this->output
