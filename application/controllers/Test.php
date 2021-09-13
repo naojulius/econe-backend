@@ -13,15 +13,9 @@ class Test extends API_Controller
 	}
 	public function jsonTest()
 	{
-		$this->CorsOrigin->Allow();
-		$this->_apiConfig([
-			'methods' => ['GET'],
-			 'requireAuthorization' => $this->requireAuthorization,
-		]);
-
+		ENABLE_AUTH('GET', false);
 		$this->db->select('*')->from('users');
 		$resp = $this->db->get()->result();
-
 		return HTTP_OK($resp);
 	}
 }
