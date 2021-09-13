@@ -59,13 +59,13 @@ class FlashAnnonceModel extends CI_Model
 		$resp = $this->db->insert($this->table, $data);
 		return $u_id;
 	}
-	// public function deleteAnnonceById($id){
-	// 	$data = array(
-	// 		'is_deleted' => true
-	// 	);
-	// 	$this->db->where('annonce_id', $id);
-	// 	$this->db->update($this->table, $data);
-	// }
+	public function deleteFlashAnnonceById($id){
+		$data = array(
+			'is_deleted' => true
+		);
+		$this->db->where('flashannonce_id', $id);
+		$this->db->update($this->table, $data);
+	}
 	// public function getRandomAnnonce(){
 	// 	$this->db->select('*')->from($this->table);
 	// 	$data = $this->db->get()->result();
@@ -89,7 +89,7 @@ class FlashAnnonceModel extends CI_Model
 	// 	return $response;
 	// }
 	public function getFLashAnnonceByLimit($limit){
-		$this->db->select('title, link, image, flashannonce_id')->from($this->table)->limit($limit)->order_by('rand()');
+		$this->db->select('title, link, image, flashannonce_id')->from($this->table)->limit($limit)->order_by('rand()')->where("is_deleted", false);
 		$response = $this->db->get()->result();
 		return $response;
 	}

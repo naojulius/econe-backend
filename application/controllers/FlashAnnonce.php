@@ -11,39 +11,39 @@ class FlashAnnonce extends API_Controller
 	public function __construct() {
 		parent::__construct();
 	}
-	// public function new()
-	// {
-	// 	$this->CorsOrigin->Allow();
-	// 	$this->_apiConfig([
-	// 		'methods' => ['POST'],
-	// 		 'requireAuthorization' => $this->requireAuthorization,
-	// 	]);
+	public function new()
+	{
+		$this->CorsOrigin->Allow();
+		$this->_apiConfig([
+			'methods' => ['POST'],
+			 'requireAuthorization' => $this->requireAuthorization,
+		]);
 
-	// 	try {
-	// 		if ($this->input->post("JsonBody") == false) {
- //           		$this->api_return(['status' => true,"data" => "donées manquante",],404);exit;
-	//         }
-	//         $data = json_decode($this->input->post("JsonBody"), true);
-	//         $flashannonce_id = $this->FlashAnnonceModel->saveFlashAnnonce($data);
+		try {
+			if ($this->input->post("JsonBody") == false) {
+           		$this->api_return(['status' => true,"data" => "donées manquante",],404);exit;
+	        }
+	        $data = json_decode($this->input->post("JsonBody"), true);
+	       
 
-	// 		$file_name = null;
-	// 		if (count($_FILES) > 0) {
-	// 		$imagePath = FCPATH . "documents/_uploads/images";
-	//             foreach ($_FILES as $file) {
-	//             	$files_ = $this->Files->upload($file, $imagePath);
-	//             	$array_image = array(
-	//             		"value"=> $files_[0],
-	//             		"annonce_id"=> $annonce_id,
+			$file_name = null;
+			if (count($_FILES) > 0) {
+			$imagePath = FCPATH . "documents/_uploads/images";
+	            foreach ($_FILES as $file) {
+	            	$name = $this->Files->upload($file, $imagePath);
+	            	$file_name = $name;
+	            }
+	        }
+	        $data['image'] = $file_name;
+	        $data['user_id'] = "C978A66F-48BF-0471-A93F-36E50940B705";
+	         $data['menu_id'] = "102S15BC-8MK6-0NVF-E9DF-9E72N75D7613";
+	        $flashannonce_id = $this->FlashAnnonceModel->saveFlashAnnonce($data);
 
-	//             	);
-	//             	$this->ImageModel->saveImage($array_image);
-	//             }
-	//         }
-	// 		$this->api_return(['status' => false,"data" =>"crée avec succès.",],200);exit;
-	// 	} catch (Exception $e) {
-	// 			$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
-	// 	}
-	// }
+			$this->api_return(['status' => false,"data" =>"crée avec succès.",],200);exit;
+		} catch (Exception $e) {
+				$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
+		}
+	}
 	// public function getById()
 	// {
 	// 	$this->CorsOrigin->Allow();
@@ -84,25 +84,25 @@ class FlashAnnonce extends API_Controller
 	// 	$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
 	// 	}
 	// }
-	// public function deleteById(){
+	public function deleteById(){
 		
-	// 	$this->CorsOrigin->Allow();
-	// 	$this->_apiConfig([
-	// 		'methods' => ['GET'],
-	// 		 'requireAuthorization' => $this->requireAuthorization,
-	// 	]);
-	// 	$data = $_GET["id"];
-	// 	try {
-	// 		if (!$data) {
-	// 		  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
-	// 		}
-	// 		$this->AnnonceModel->deleteAnnonceById($data);
-	// 		$this->api_return(['status' => false,"data" =>"supprimé avec succès",],200);exit;
+		$this->CorsOrigin->Allow();
+		$this->_apiConfig([
+			'methods' => ['GET'],
+			 'requireAuthorization' => $this->requireAuthorization,
+		]);
+		$data = $_GET["id"];
+		try {
+			if (!$data) {
+			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
+			}
+			$this->FlashAnnonceModel->deleteFlashAnnonceById($data);
+			$this->api_return(['status' => false,"data" =>"supprimé avec succès",],200);exit;
 			
-	// 	} catch (Exception $e) {
-	// 	$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
-	// 	}
-	// }
+		} catch (Exception $e) {
+		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
+		}
+	}
 
 	public function FlashAnnonceTable(){
 		$fetch_data = $this->FlashAnnonceTable->make_datatables();

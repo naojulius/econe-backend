@@ -90,11 +90,18 @@ $route['api/user/all']  = 'auth/getAllUser';
 $route['api/flashannonce/number'] = "flashAnnonce/FlashAnnonceByLimit";
 $route['api/flashannonce/all'] = "flashAnnonce/FlashAnnonceTable";
 $route['api/flashannonce/new'] = "flashAnnonce/New";
+$route['api/flashannonce/delete'] = "flashAnnonce/deleteById";
 /*
 menu
 */
 $route['api/menu/get'] = "menu/getByKey";
 $route['api/menu/groupe'] = "menu/getByGroupe";
+
+
+/*
+   Test
+*/
+   $route['api/test/json'] = "test/jsonTest";
 
 
 
