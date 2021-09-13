@@ -24,7 +24,7 @@ class FlashAnnonce extends API_Controller
  //           		$this->api_return(['status' => true,"data" => "donées manquante",],404);exit;
 	//         }
 	//         $data = json_decode($this->input->post("JsonBody"), true);
-	//         $annonce_id = $this->AnnonceModel->saveAnnonce($data);
+	//         $flashannonce_id = $this->FlashAnnonceModel->saveFlashAnnonce($data);
 
 	// 		$file_name = null;
 	// 		if (count($_FILES) > 0) {
