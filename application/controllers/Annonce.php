@@ -147,11 +147,7 @@ class Annonce extends API_Controller
 	      "recordsFiltered" => $this->AnnonceTable->get_filtered_data(),
 	      "data" => $data    
 	    );    
-	     // $this->output
-			   //      ->set_content_type('application/json')
-			   //      ->set_output(json_encode(array('status' => true,"data" => $output)));
 		$response = array('status' => true,"data" => $output) ; 
-
 	     return HTTP_OK($response);
 	}
 
@@ -164,14 +160,17 @@ class Annonce extends API_Controller
 		$limit = $_GET["limit"];
 		try {
 			if (!$limit) {
-			  	$this->output
-			        ->set_content_type('application/json')
-			        ->set_output(json_encode(array('status' => true,"data" => "donées insuffisante")));
+			  	// $this->output
+			   //      ->set_content_type('application/json')
+			   //      ->set_output(json_encode());
+
+				return HTTP_BADREQUEST(array('status' => true,"data" => "donées insuffisante"));
 			}
 			$annonces = $this->AnnonceModel->getAnnonceByLimit($limit);
-			$this->output
-			        ->set_content_type('application/json')
-			        ->set_output(json_encode(array('status' => true,"data" => $annonces)));
+			// $this->output
+			//         ->set_content_type('application/json')
+			//         ->set_output(json_encode(array('status' => true,"data" => $annonces)));
+			return HTTP_OK(array('status' => true,"data" => $annonces));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
