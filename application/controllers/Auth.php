@@ -134,8 +134,9 @@ class Auth extends API_Controller
 	      "recordsFiltered" => $this->UserTable->get_filtered_data(),
 	      "data" => $data    
 	    );    
-	    $this->output
-			        ->set_content_type('application/json')
-			        ->set_output(json_encode(array('status' => true,"data" => $output)));
+	    // $this->output
+			  //       ->set_content_type('application/json')
+			  //       ->set_output(json_encode(array('status' => true,"data" => $output)));
+	    HTTP_OK($output);
 	}
 }

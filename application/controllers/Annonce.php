@@ -147,9 +147,11 @@ class Annonce extends API_Controller
 	      "recordsFiltered" => $this->AnnonceTable->get_filtered_data(),
 	      "data" => $data    
 	    );    
-	    $this->output
-			        ->set_content_type('application/json')
-			        ->set_output(json_encode(array('status' => true,"data" => $output)));
+	    // $this->output
+			  //       ->set_content_type('application/json')
+			  //       ->set_output(json_encode(array('status' => true,"data" => $output)));
+
+	    return HTTP_OK($output);
 	}
 
 	public function AnnonceByLimit(){

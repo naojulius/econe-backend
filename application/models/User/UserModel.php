@@ -13,7 +13,7 @@ class UserModel extends CI_Model
 		return $this->db->get()->result();
 	}
 	public function getUserById($id){
-		$this->db->where('user_id', $id)->select('user_id, username, email, photo, firstName, lastName, nationality, birthDate, sexe, phone')->from($this->table);
+		$this->db->where('user_id', $id)->select('user_id, username, email, photo, firstName, lastName, nationality, birthDate, sexe, phone', 'role')->from($this->table);
 		return $this->db->get()->result();
 	}
 	public function saveUser($data){
@@ -39,11 +39,11 @@ class UserModel extends CI_Model
 	}
 
 	public function getAllUser(){
-		$this->db->select('username, user_id, photo, firstName, lastName, nationality, birthDate, sexe, phone, nationality')->from($this->table);
+		$this->db->select('*')->from($this->table);
 		$data = $this->db->get()->result();
-
 		$response = array();
 		foreach ($data as $user) {
+			unset($user->password);
 			$user->status = $this->UserModel->getUserStatusByUSerId($user->user_id);
 			array_push($response, $user);
 		}
