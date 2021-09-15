@@ -148,8 +148,8 @@ class Annonce extends API_Controller
 	      "data" => $data    
 	    );    
 	     $this->output
-			  //       ->set_content_type('application/json')
-			  //       ->set_output(json_encode(array('status' => true,"data" => $output)));
+			        ->set_content_type('application/json')
+			        ->set_output(json_encode(array('status' => true,"data" => $output)));
 
 	    // return HTTP_OK($output);
 	}
