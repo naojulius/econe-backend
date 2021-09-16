@@ -37,6 +37,7 @@ class Auth extends API_Controller
 				'user_id' => $user[0]->user_id,
 				'username' => $user[0]->username,
 				'role'=>$user[0]->role,
+				'photo' => $user[0]->photo,
 			];
 		$token = $this->authorization_token->generateToken($payload);
 		$this->output
@@ -90,7 +91,9 @@ class Auth extends API_Controller
 			$user_id = $user['username'];
 			$payload = [
 				'user_id' => $user['user_id'],
-				'username' => $user['username']
+				'username' => $user['username'],
+				'photo' => $user['photo'],
+				'role' => $user['role']
 			];
 		$token = $this->authorization_token->generateToken($payload);
 		$this->api_return(['status' => true,"data" => $token,],200);

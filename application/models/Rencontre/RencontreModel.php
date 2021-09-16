@@ -90,7 +90,7 @@ class RencontreModel extends CI_Model
 	// }
 
 	public function getRencontreByLimit($limit){
-		$this->db->select('*')->from($this->table)->limit($limit);
+		$this->db->select('*')->from($this->table)->limit($limit)->order_by('rand()');
 		$condition = array("text"=>StateEnum::PAYED_NOT_EXPIRED);
 
 		$this->db->join('state', 'state.state_id=rencontres.state_id');

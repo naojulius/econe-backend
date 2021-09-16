@@ -16,33 +16,33 @@ class Annonce extends API_Controller
 		$this->CorsOrigin->Allow();
 		$this->_apiConfig([
 			'methods' => ['POST'],
-			 'requireAuthorization' => $this->requireAuthorization,
+			'requireAuthorization' => $this->requireAuthorization,
 		]);
 
 		try {
 			if ($this->input->post("JsonBody") == false) {
-           		$this->api_return(['status' => true,"data" => "donées manquante",],404);exit;
+				$this->api_return(['status' => true,"data" => "donées manquante",],404);exit;
 			}
 			
 			if ($this->input->post("montant") == false) {
 				$this->api_return(['status' => true,"data" => "donées manquante",],404);exit;
-		 	}
+			}
 			
-	        $data = json_decode($this->input->post("JsonBody"), true);
-	        $annonce_id = $this->AnnonceModel->saveAnnonce($data);
+			$data = json_decode($this->input->post("JsonBody"), true);
+			$annonce_id = $this->AnnonceModel->saveAnnonce($data);
 
 			$file_name = null;
 			if (count($_FILES) > 0) {
-			$imagePath = FCPATH . "documents/_uploads/images";
-	            foreach ($_FILES as $file) {
-	            	$files_ = $this->Files->upload($file, $imagePath);
-	            	$array_image = array(
-	            		"value"=> $files_[0],
-	            		"annonce_id"=> $annonce_id,
+				$imagePath = FCPATH . "documents/_uploads/images";
+				foreach ($_FILES as $file) {
+					$files_ = $this->Files->upload($file, $imagePath);
+					$array_image = array(
+						"value"=> $files_[0],
+						"annonce_id"=> $annonce_id,
 
-	            	);
-	            	$this->ImageModel->saveImage($array_image);
-	            }
+					);
+					$this->ImageModel->saveImage($array_image);
+				}
 			}
 
 			$user = $this->UserModel->getUserById($data["user_id"]);
@@ -56,16 +56,16 @@ class Annonce extends API_Controller
 			try {
 				$result = $this->Payment->process($paymentData);
 				$this->output
-						->set_content_type('application/json')
-						->set_output(json_encode(array('status' => true,"data" => $result)));
+				->set_content_type('application/json')
+				->set_output(json_encode(array('status' => true,"data" => $result)));
 			} catch (\Exception $e) {
 				$this->output
-						->set_content_type('application/json')
-						->set_output(json_encode(array('status' => false,"data" => $e->getMessage())));
+				->set_content_type('application/json')
+				->set_output(json_encode(array('status' => false,"data" => $e->getMessage())));
 			}
 
 		} catch (Exception $e) {
-				$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
+			return HTTP_BADREQUEST(array('status' => true,"data" => "Erreur interne au serveur, veuillez contacter l'administrateur."));
 		}
 	}
 	public function getById()
@@ -73,43 +73,43 @@ class Annonce extends API_Controller
 		$this->CorsOrigin->Allow();
 		$this->_apiConfig([
 			'methods' => ['GET'],
-			 'requireAuthorization' => $this->requireAuthorization,
+			'requireAuthorization' => $this->requireAuthorization,
 		]);
 		$data = $_GET["id"];
 		try {
 			if (!$data) {
-			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
+				$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			}
 			$followers = $this->AnnonceModel->getAnnonceById($data);
 			if(!$followers){
 				$this->api_return(['status' => false,"data" =>"annonce introuvable.",],404);exit;
 			}
 			$this->output
-			        ->set_content_type('application/json')
-			        ->set_output(json_encode(array('status' => true,"data" => $followers)));
+			->set_content_type('application/json')
+			->set_output(json_encode(array('status' => true,"data" => $followers)));
 			
 		} catch (Exception $e) {
-		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
+			return HTTP_BADREQUEST(array('status' => true,"data" => "Erreur interne au serveur, veuillez contacter l'administrateur."));
 		}
 	}
 	public function getByOwner(){
 		$this->CorsOrigin->Allow();
 		$this->_apiConfig([
 			'methods' => ['GET'],
-			 'requireAuthorization' => $this->requireAuthorization,
+			'requireAuthorization' => $this->requireAuthorization,
 		]);
 		$data = $_GET["id"];
 		try {
 			if (!$data) {
-			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
+				$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			}
 			$jobs = $this->AnnonceModel->getUserAnnoncesByUserId($data);
 			$this->output
-			        ->set_content_type('application/json')
-			        ->set_output(json_encode(array('status' => true,"data" => $jobs)));
+			->set_content_type('application/json')
+			->set_output(json_encode(array('status' => true,"data" => $jobs)));
 			
 		} catch (Exception $e) {
-		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
+			return HTTP_BADREQUEST(array('status' => true,"data" => "Erreur interne au serveur, veuillez contacter l'administrateur."));
 		}
 	}
 	public function deleteById(){
@@ -117,63 +117,57 @@ class Annonce extends API_Controller
 		$this->CorsOrigin->Allow();
 		$this->_apiConfig([
 			'methods' => ['GET'],
-			 'requireAuthorization' => $this->requireAuthorization,
+			'requireAuthorization' => $this->requireAuthorization,
 		]);
 		$data = $_GET["id"];
 		try {
 			if (!$data) {
-			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
+				$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
 			}
 			$this->AnnonceModel->deleteAnnonceById($data);
 			$this->output
-			        ->set_content_type('application/json')
-			        ->set_output(json_encode(array('status' => true,"data" => "supprimé")));
+			->set_content_type('application/json')
+			->set_output(json_encode(array('status' => true,"data" => "supprimé")));
+
 			
 		} catch (Exception $e) {
-		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
+			return HTTP_BADREQUEST(array('status' => true,"data" => "Erreur interne au serveur, veuillez contacter l'administrateur."));
 		}
 	}
 
 	public function annonceTable(){
 		$fetch_data = $this->AnnonceTable->make_datatables();
-	    $data = array();
-	    foreach($fetch_data as $row){
-	      $sub_array = $this->AnnonceModel->getAnnonceById($row->annonce_id)[0];
-	      $data[] = $sub_array;    
-	    }
-	    $output = array(
-	      "draw" => intval($_POST["draw"]),
-	      "recordsTotal" => $this->AnnonceTable->get_all_data(),
-	      "recordsFiltered" => $this->AnnonceTable->get_filtered_data(),
-	      "data" => $data    
-	    );    
+		$data = array();
+		foreach($fetch_data as $row){
+			$sub_array = $this->AnnonceModel->getAnnonceById($row->annonce_id)[0];
+			$data[] = $sub_array;    
+		}
+		$output = array(
+			"draw" => intval($_POST["draw"]),
+			"recordsTotal" => $this->AnnonceTable->get_all_data(),
+			"recordsFiltered" => $this->AnnonceTable->get_filtered_data(),
+			"data" => $data    
+		);    
 		$response = array('status' => true,"data" => $output) ; 
-	     return HTTP_OK($response);
+		return HTTP_OK($response);
 	}
 
 	public function AnnonceByLimit(){
-	   $this->CorsOrigin->Allow();
+		$this->CorsOrigin->Allow();
 		$this->_apiConfig([
 			'methods' => ['GET'],
-			 'requireAuthorization' => $this->requireAuthorization,
+			'requireAuthorization' => $this->requireAuthorization,
 		]);
 		$limit = $_GET["limit"];
 		try {
 			if (!$limit) {
-			  	// $this->output
-			   //      ->set_content_type('application/json')
-			   //      ->set_output(json_encode());
-
 				return HTTP_BADREQUEST(array('status' => true,"data" => "donées insuffisante"));
 			}
 			$annonces = $this->AnnonceModel->getAnnonceByLimit($limit);
-			// $this->output
-			//         ->set_content_type('application/json')
-			//         ->set_output(json_encode(array('status' => true,"data" => $annonces)));
 			return HTTP_OK(array('status' => true,"data" => $annonces));
 			
 		} catch (Exception $e) {
-		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
+			return HTTP_BADREQUEST(array('status' => true,"data" => "Erreur interne au serveur, veuillez contacter l'administrateur."));
 		}
 	}
 }

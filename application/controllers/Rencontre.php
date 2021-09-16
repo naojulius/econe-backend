@@ -18,30 +18,38 @@ class Rencontre extends API_Controller
 			'methods' => ['POST'],
 			 'requireAuthorization' => $this->requireAuthorization,
 		]);
-		$data = json_decode(file_get_contents('php://input'), true);
+		$file_name = null;
+		if (count($_FILES) > 0) {
+		$imagePath = FCPATH . "documents/_uploads/users";
+            foreach ($_FILES as $file) {
+            	$name = $this->Files->upload($file, $imagePath);
+            	$file_name = $name;
+            }
+        }else{
+        	$file_name = "AEC303D8-7B05-79B5-6C4F-9F7A17E489E8.svg";
+        }
+		$data = json_decode($this->input->post("JsonBody"), true);
+		$data['photo'] = $file_name;
 		try {
 			foreach ($data as $key => $value) {
 			 if (!$value) {
-			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
+			  	return HTTP_BADREQUEST(array('status' => false,"data" =>"données insuffisante."));
 			  }
 			}
 			$rencontre_id = $this->RencontreModel->saveRencontre($data);
+
 			$user = $this->UserModel->getUserById($data["user_id"]);
 				$paymentData = array (
 					"entity_type" => "Rencontre",
 					"entity_id" => $rencontre_id,
-					"montant" => $data["montant"],
+					"montant" => $this->input->post("montant"),
 					"name" => $user[0]->firstName . " " . $user[0]->lastName
 				);
 				try {
 					$result = $this->Payment->process($paymentData);
-					$this->output
-							->set_content_type('application/json')
-							->set_output(json_encode(array('status' => true,"data" => $result)));
-				} catch (\Exception $e) {
-					$this->output
-							->set_content_type('application/json')
-							->set_output(json_encode(array('status' => false,"data" => $e->getMessage())));
+					HTTP_OK(array('status' => true,"data" => $result));
+				} catch (Exception $e) {
+					return HTTP_BADREQUEST(array('status' => true,"data" => "Erreur interne au serveur, veuillez contacter l'administrateur."));
 			}
 
 
