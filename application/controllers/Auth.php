@@ -111,14 +111,14 @@ class Auth extends API_Controller
 		]);
 		$data = $_GET["id"];
 		try {
-			if (!$data) {
-			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
+			if(!$data) {
+			  	HTTP_BADREQUEST(array('status' => false,"data" =>"données insuffisante."));
 			}
 			$followers = $this->UserModel->getUserById($data);
 			if(!$followers){
-				$this->api_return(['status' => false,"data" =>"utilisateurs introuvable.",],404);exit;
+				 HTTP_BADREQUEST(array('status' => false,"data" =>"utilisateurs introuvable."));
 			}
-			$this->api_return(['status' => false,"data" =>$followers,],200);exit;
+			HTTP_OK(array('status' => false,"data" =>$followers));
 			
 		} catch (Exception $e) {
 		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
