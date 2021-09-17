@@ -121,7 +121,7 @@ class Auth extends API_Controller
 			HTTP_OK(array('status' => false,"data" =>$followers));
 			
 		} catch (Exception $e) {
-		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
+			$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
 		}
 	}
 	public function getAllUser(){
@@ -137,9 +137,6 @@ class Auth extends API_Controller
 	      "recordsFiltered" => $this->UserTable->get_filtered_data(),
 	      "data" => $data    
 	    );    
-	    // $this->output
-			  //       ->set_content_type('application/json')
-			  //       ->set_output(json_encode(array('status' => true,"data" => $output)));
 	    HTTP_OK($output);
 	}
 }

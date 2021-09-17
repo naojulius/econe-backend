@@ -42,4 +42,17 @@ class JobFollower extends CI_Model
 		$this->db->where($data)->select('*')->from($this->table);
 		return  $this->db->count_all_results(); 
 	}
+	public function getJobsByFollowerId($id){
+		$data= array(
+			'user_id'=>$id,
+		);
+		$this->db->where($data)->select('*')->from($this->table);
+		$jobs_ids = $this->db->get()->result(); 
+		$results = [];
+		foreach ($jobs_ids as $job) {
+			$job = $this->JobModel->getJobById($job->job_id);
+			array_push($results,$job[0]);
+		}
+		return $results;
+	}
 }
