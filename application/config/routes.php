@@ -59,6 +59,7 @@ $route['api/rencontre/follow'] =  'follower/followRencontre'; //POST
 $route['api/rencontre/unfollow'] = 'follower/unfollowRencontre'; //POST
 $route['api/rencontre/all'] = "rencontre/rencontreTable"; //POST
 $route['api/rencontre/number'] = "rencontre/RencontreByLimit";
+$route['api/rencontre/follower/get'] = "follower/getRencontreByFollower";
 /*
     ventes
 */

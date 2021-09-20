@@ -10,17 +10,7 @@ class Follower extends API_Controller
 	public function __construct() {
 		parent::__construct();
 	}
-	public function getJobsByFollower(){
-		
-		ENABLE_AUTH('GET', false);
-
-		$follower_id = $_GET["id"];
-		if(!$follower_id){
-			return HTTP_BADREQUEST(array('status' => false,"data" =>"Une erreur s'est produite."));
-		}
-		$jobs = $this->JobFollower->getJobsByFollowerId($follower_id);
-		Http_OK($jobs);
-	}
+	
 	public function checkFollower(){
 		ENABLE_AUTH('POST', false);
 		$data = json_decode(file_get_contents('php://input'), true);
@@ -33,12 +23,16 @@ class Follower extends API_Controller
 		$followers = $this->JobFollower->getFollowersByJobId($data['job_id']);
 
 		foreach ($followers as $follower) {
-			 if($data['follower_id'] == $follower->user_id){
+			if($data['follower_id'] == $follower->user_id){
 				return HTTP_OK(true);
-			 }
+			}
 		}
 		return HTTP_OK(false);
 	}
+
+	/*
+	follow job
+	*/
 	public function followJob()
 	{
 
@@ -57,9 +51,9 @@ class Follower extends API_Controller
 			$followers = $this->JobFollower->getFollowersByJobId($data['job_id']);
 
 			foreach ($followers as $follower) {
-				 if($data['follower_id'] == $follower->user_id){
+				if($data['follower_id'] == $follower->user_id){
 					return HTTP_OK(array('status' => true,"data" => "emploie déjà suivie."));
-				 }
+				}
 			}
 
 			$this->JobFollower->saveFollower($data['follower_id'], $data['job_id']);
@@ -75,18 +69,29 @@ class Follower extends API_Controller
 
 		if (!$data['follower_id']) {
 			
-			return HTTP_BADREQUEST(array('status' => false,"data" =>"une erreur s'est produite."));
+			return HTTP_BADREQUEST("une erreur s'est produite.");
 		}
 		if (!$data["job_id"]) {
-			return HTTP_BADREQUEST(array('status' => false,"data" =>"une erreur s'est produite."));
+			return HTTP_BADREQUEST("une erreur s'est produite.");
 		}
 
 		try {
 			$this->JobFollower->deleteFollower($data['follower_id'], $data['job_id']);
-			HTTP_OK(array('status' => true,"data" => "Désabonnement avec succès."));
+			return HTTP_OK("Désabonnement avec succès.");
 		} catch (Exception $e) {
-			$this->api_return(['status' => false,"data" =>"Erreur interne au serveur!",],500);exit;
+			return HTTP_INTERNAL_ERROR("Désabonnement avec succès.");
 		}
+	}
+	public function getJobsByFollower(){
+		
+		ENABLE_AUTH('GET', false);
+
+		$follower_id = $_GET["id"];
+		if(!$follower_id){
+			return HTTP_BADREQUEST(array('status' => false,"data" =>"Une erreur s'est produite."));
+		}
+		$jobs = $this->JobFollower->getJobsByFollowerId($follower_id);
+		Http_OK($jobs);
 	}
 
 	/*
@@ -143,99 +148,109 @@ class Follower extends API_Controller
 	*/
 	public function followRencontre()
 	{
-		$this->CorsOrigin->Allow();
-		$this->_apiConfig([
-			'methods' => ['POST'],
-			 //'requireAuthorization' => true,
-		]);
+
+		ENABLE_AUTH('POST', false);
 		$data = json_decode(file_get_contents('php://input'), true);
 
-		if (!$data['follower_id']) {
-			$this->api_return(['status' => false,"data" =>"suiveur invalide.",],404);exit;
+		if (!$data['rencontre_id']) {
+			return HTTP_BADREQUEST("Une erreur s'est produite.");
 		}
 		if (!$data["rencontre_id"]) {
-			$this->api_return(['status' => false,"data" =>"rencontre invalide.",],404);exit;
+			return HTTP_BADREQUEST("Une erreur s'est produite.");
 		}
 
 		try {
+
+			$followers = $this->RencontreFollower->getFollowersByRencontreId($data['rencontre_id']);
+
+			foreach ($followers as $follower) {
+				if($data['follower_id'] == $follower->user_id){
+					return HTTP_OK("emploie déjà suivie.");
+				}
+			}
 			$this->RencontreFollower->saveFollower($data['follower_id'], $data['rencontre_id']);
-			$this->api_return(['status' => true,"data" => "Suivie avec succès."],200);
+			return HTTP_OK("Suivie avec succès.");
 		} catch (Exception $e) {
-			$this->api_return(['status' => false,"data" =>"Erreur interne au serveur!",],500);exit;
+			return HTTP_INTERNAL_ERROR("Erreur interne au serveur.");
 		}
 	}
 	public function unfollowRencontre()
 	{
-		$this->CorsOrigin->Allow();
-		$this->_apiConfig([
-			'methods' => ['POST'],
-			 //'requireAuthorization' => true,
-		]);
+		ENABLE_AUTH('POST', false);
 		$data = json_decode(file_get_contents('php://input'), true);
 
-		if (!$data['follower_id']) {
-			$this->api_return(['status' => false,"data" =>"suiveur ID invalide.",],404);exit;
+		if (!$data['rencontre_id']) {
+			return HTTP_BADREQUEST("Une erreur s'est produite.");
 		}
 		if (!$data["rencontre_id"]) {
-			$this->api_return(['status' => false,"data" =>"rencontre ID invalide.",],404);exit;
+			return HTTP_BADREQUEST("Une erreur s'est produite.");
 		}
 
 		try {
 			$this->RencontreFollower->deleteFollower($data['follower_id'], $data['rencontre_id']);
-			$this->api_return(['status' => true,"data" => "Désabonnement avec succès."],200);
+			return HTTP_OK("Désaboné avec succès.");
 		} catch (Exception $e) {
-			$this->api_return(['status' => false,"data" =>"Erreur interne au serveur!",],500);exit;
+			return HTTP_INTERNAL_ERROR("Erreur interne au serveur!");
 		}
+	}
+	public function getRencontreByFollower(){
+		ENABLE_AUTH('GET', false);
+		$follower_id = $_GET["id"];
+		if(!$follower_id){
+			return HTTP_BADREQUEST("Une erreur s'est produite.");
+		}
+		$jobs = $this->RencontreFollower->getRencontresByFollowerId($follower_id);
+		Http_OK($jobs);
 	}
 
 	/*
 		follow achat-vente
 	*/
 
-	public function followVente()
-	{
-		$this->CorsOrigin->Allow();
-		$this->_apiConfig([
-			'methods' => ['POST'],
+		public function followVente()
+		{
+			$this->CorsOrigin->Allow();
+			$this->_apiConfig([
+				'methods' => ['POST'],
 			 //'requireAuthorization' => true,
-		]);
-		$data = json_decode(file_get_contents('php://input'), true);
+			]);
+			$data = json_decode(file_get_contents('php://input'), true);
 
-		if (!$data['follower_id']) {
-			$this->api_return(['status' => false,"data" =>"suiveur invalide.",],404);exit;
-		}
-		if (!$data["vente_id"]) {
-			$this->api_return(['status' => false,"data" =>"vente invalide.",],404);exit;
-		}
+			if (!$data['follower_id']) {
+				$this->api_return(['status' => false,"data" =>"suiveur invalide.",],404);exit;
+			}
+			if (!$data["vente_id"]) {
+				$this->api_return(['status' => false,"data" =>"vente invalide.",],404);exit;
+			}
 
-		try {
-			$this->VenteFollower->saveFollower($data['follower_id'], $data['vente_id']);
-			$this->api_return(['status' => true,"data" => "Suivie avec succès."],200);
-		} catch (Exception $e) {
-			$this->api_return(['status' => false,"data" =>"Erreur interne au serveur!",],500);exit;
+			try {
+				$this->VenteFollower->saveFollower($data['follower_id'], $data['vente_id']);
+				$this->api_return(['status' => true,"data" => "Suivie avec succès."],200);
+			} catch (Exception $e) {
+				$this->api_return(['status' => false,"data" =>"Erreur interne au serveur!",],500);exit;
+			}
 		}
+		public function unfollowVente()
+		{
+			$this->CorsOrigin->Allow();
+			$this->_apiConfig([
+				'methods' => ['POST'],
+			 //'requireAuthorization' => true,
+			]);
+			$data = json_decode(file_get_contents('php://input'), true);
+
+			if (!$data['follower_id']) {
+				$this->api_return(['status' => false,"data" =>"suiveur ID invalide.",],404);exit;
+			}
+			if (!$data["vente_id"]) {
+				$this->api_return(['status' => false,"data" =>"vente ID invalide.",],404);exit;
+			}
+
+			try {
+				$this->VenteFollower->deleteFollower($data['follower_id'], $data['vente_id']);
+				$this->api_return(['status' => true,"data" => "Désabonnement avec succès."],200);
+			} catch (Exception $e) {
+				$this->api_return(['status' => false,"data" =>"Erreur interne au serveur!",],500);exit;
+			}
+		}	
 	}
-	public function unfollowVente()
-	{
-		$this->CorsOrigin->Allow();
-		$this->_apiConfig([
-			'methods' => ['POST'],
-			 //'requireAuthorization' => true,
-		]);
-		$data = json_decode(file_get_contents('php://input'), true);
-
-		if (!$data['follower_id']) {
-			$this->api_return(['status' => false,"data" =>"suiveur ID invalide.",],404);exit;
-		}
-		if (!$data["vente_id"]) {
-			$this->api_return(['status' => false,"data" =>"vente ID invalide.",],404);exit;
-		}
-
-		try {
-			$this->VenteFollower->deleteFollower($data['follower_id'], $data['vente_id']);
-			$this->api_return(['status' => true,"data" => "Désabonnement avec succès."],200);
-		} catch (Exception $e) {
-			$this->api_return(['status' => false,"data" =>"Erreur interne au serveur!",],500);exit;
-		}
-	}	
-}

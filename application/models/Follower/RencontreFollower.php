@@ -42,4 +42,17 @@ class RencontreFollower extends CI_Model
 		$this->db->where($data)->select('*')->from($this->table);
 		return  $this->db->count_all_results(); 
 	}
+	public function getRencontresByFollowerId($id){
+		$data= array(
+			'user_id'=>$id,
+		);
+		$this->db->where($data)->select('*')->from($this->table);
+		$rencontres = $this->db->get()->result(); 
+		$results = [];
+		foreach ($rencontres as $rencontre) {
+			$rencontre = $this->RencontreModel->getRencontreById($rencontre->rencontre_id);
+			array_push($results,$rencontre[0]);
+		}
+		return $results;
+	}
 }
