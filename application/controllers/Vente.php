@@ -146,29 +146,24 @@ class Vente extends API_Controller
 	      "recordsFiltered" => $this->VenteTable->get_filtered_data(),
 	      "data" => $data    
 	    );    
-	    $this->output
-			        ->set_content_type('application/json')
-			        ->set_output(json_encode(array('status' => true,"data" => $output)));
+	    // $this->output
+			  //       ->set_content_type('application/json')
+			  //       ->set_output(json_encode(array('status' => true,"data" => $output)));
+	    return HTTP_OK($output);
 	}
 
 	public function VenteByLimit(){
-	$this->CorsOrigin->Allow();
-		$this->_apiConfig([
-			'methods' => ['GET'],
-			 'requireAuthorization' => $this->requireAuthorization,
-		]);
+		ENABLE_AUTH('GET', false);
 		$limit = $_GET["limit"];
 		try {
 			if (!$limit) {
-			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
+			  	return HTTP_BADREQUEST("donées insuffisante");
 			}
-			$ventes = $this->VenteModel->getVenteByLimit($limit);
-			$this->output
-			        ->set_content_type('application/json')
-			        ->set_output(json_encode(array('status' => true,"data" => $ventes)));
+			$response = $this->VenteModel->getVenteByLimit($limit);
+			return HTTP_OK($response);
 			
 		} catch (Exception $e) {
-		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
+			return HTTP_BADREQUEST("Erreur interne au serveur, veuillez contacter l'administrateur.");
 		}
 	}
 }

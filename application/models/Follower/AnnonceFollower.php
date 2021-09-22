@@ -42,4 +42,17 @@ class AnnonceFollower extends CI_Model
 		$this->db->where($data)->select('*')->from($this->table);
 		return  $this->db->count_all_results(); 
 	}
+	public function getAnnoncesByFollowerId($id){
+		$data= array(
+			'user_id'=>$id,
+		);
+		$this->db->where($data)->select('*')->from($this->table);
+		$responses = $this->db->get()->result(); 
+		$results = [];
+		foreach ($responses as $item) {
+			$item = $this->AnnonceModel->getAnnonceById($item->annonce_id);
+			array_push($results,$item[0]);
+		}
+		return $results;
+	}
 }

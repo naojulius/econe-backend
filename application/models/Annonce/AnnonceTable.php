@@ -31,7 +31,12 @@ class AnnonceTable extends CI_Model
 	function make_datatables(){
 		$this->make_query();
 		if($_POST["length"] != -1){
-			$this->db->limit($_POST["length"], $_POST["start"]);
+			if($_POST["start"] != 0){
+				$start = $_POST["start"] - 1;
+				$this->db->limit($_POST["length"],  $start);
+			}else{
+				$this->db->limit($_POST["length"],  0);
+			}
 		}
 		$query = $this->db->get();
 		return $query->result();

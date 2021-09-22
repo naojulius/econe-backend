@@ -135,29 +135,24 @@ class Rencontre extends API_Controller
 	      "recordsFiltered" => $this->RencontreTable->get_filtered_data(),
 	      "data" => $data    
 	    );    
-	   $this->output
-			        ->set_content_type('application/json')
-			        ->set_output(json_encode(array('status' => true,"data" => $output)));
+	   // $this->output
+			 //        ->set_content_type('application/json')
+			 //        ->set_output(json_encode(array('status' => true,"data" => $output)));
+	    return HTTP_OK($output);
 	}
 
 	public function RencontreByLimit(){
-		 $this->CorsOrigin->Allow();
-		$this->_apiConfig([
-			'methods' => ['GET'],
-			 'requireAuthorization' => $this->requireAuthorization,
-		]);
+		ENABLE_AUTH('GET', false);
 		$limit = $_GET["limit"];
 		try {
 			if (!$limit) {
-			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
+			  	return HTTP_BADREQUEST("données insuffisante.");
 			}
 			$rencontres = $this->RencontreModel->getRencontreByLimit($limit);
-			$this->output
-			        ->set_content_type('application/json')
-			        ->set_output(json_encode(array('status' => true,"data" => $rencontres)));
+			return HTTP_OK($rencontres);
 			
 		} catch (Exception $e) {
-		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
+			return HTTP_BADREQUEST("Erreur interne au serveur, veuillez contacter l'administrateur.");
 		}
 	}
 }

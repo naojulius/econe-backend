@@ -47,6 +47,7 @@ $route['api/annonce/follow'] =  'follower/followAnnonce'; //POST
 $route['api/annonce/unfollow'] = 'follower/unfollowAnnonce'; //POST
 $route['api/annonce/all'] = "annonce/annonceTable";
 $route['api/annonce/number'] = "annonce/AnnonceByLimit";
+$route['api/annonce/follower/get'] = "follower/getAnnonceByFollower";
 
  /*
     rencontres
@@ -71,6 +72,7 @@ $route['api/vente/follow'] =  'follower/followVente'; //POST
 $route['api/vente/unfollow'] = 'follower/unfollowVente'; //POST
 $route['api/vente/all'] = "vente/venteTable"; //POST
 $route['api/vente/number'] = "vente/VenteByLimit";
+$route['api/vente/follower/get'] = "follower/getVenteByFollower";
 
 // Paiement.
 $route['payment/process'] = "PaiementController/validerAchat"; // Procéder à un paiement

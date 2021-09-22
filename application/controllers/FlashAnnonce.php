@@ -117,7 +117,7 @@ class FlashAnnonce extends API_Controller
 	      "recordsFiltered" => $this->FlashAnnonceTable->get_filtered_data(),
 	      "data" => $data    
 	    );    
-	    $this->api_return(['status' => false,"data" =>$output,],200);exit;
+	    return HTTP_OK($output);
 	}
 
 	public function FlashAnnonceByLimit(){
@@ -129,15 +129,13 @@ class FlashAnnonce extends API_Controller
 		$limit = $_GET["limit"];
 		try {
 			if (!$limit) {
-			  	$this->api_return(['status' => false,"data" =>"données insuffisante.",],400);exit;
+			  	return HTTP_BADREQUEST("données insuffisante.");
 			}
-			$annonces = $this->FlashAnnonceModel->getFlashAnnonceByLimit($limit);
-			$this->output
-			        ->set_content_type('application/json')
-			        ->set_output(json_encode(array('status' => true,"data" => $annonces)));
+			$response = $this->FlashAnnonceModel->getFlashAnnonceByLimit($limit);
+			return HTTP_OK($response);
 			
 		} catch (Exception $e) {
-		$this->api_return(['status' => false,"data" =>"Erreur interne au serveur, veuillez contacter l'administrateur.",],400);exit;
+			return HTTP_BADREQUEST("Erreur interne au serveur, veuillez contacter l'administrateur.");
 		}
 	}
 }

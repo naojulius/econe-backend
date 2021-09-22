@@ -148,26 +148,23 @@ class Annonce extends API_Controller
 			"recordsFiltered" => $this->AnnonceTable->get_filtered_data(),
 			"data" => $data    
 		);    
-		$response = array('status' => true,"data" => $output) ; 
-		return HTTP_OK($response);
+		//$response = array('status' => true,"data" => $output) ; 
+		return HTTP_OK($output);
 	}
 
 	public function AnnonceByLimit(){
-		$this->CorsOrigin->Allow();
-		$this->_apiConfig([
-			'methods' => ['GET'],
-			'requireAuthorization' => $this->requireAuthorization,
-		]);
+		ENABLE_AUTH('GET', false);
+		
 		$limit = $_GET["limit"];
 		try {
 			if (!$limit) {
-				return HTTP_BADREQUEST(array('status' => true,"data" => "donées insuffisante"));
+				return HTTP_BADREQUEST("donées insuffisante");
 			}
-			$annonces = $this->AnnonceModel->getAnnonceByLimit($limit);
-			return HTTP_OK(array('status' => true,"data" => $annonces));
+			$response = $this->AnnonceModel->getAnnonceByLimit($limit);
+			return HTTP_OK($response);
 			
 		} catch (Exception $e) {
-			return HTTP_BADREQUEST(array('status' => true,"data" => "Erreur interne au serveur, veuillez contacter l'administrateur."));
+			return HTTP_BADREQUEST("Erreur interne au serveur, veuillez contacter l'administrateur.");
 		}
 	}
 }
