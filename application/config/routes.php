@@ -76,7 +76,7 @@ $route['api/vente/follower/get'] = "follower/getVenteByFollower";
 
 // Paiement.
 $route['payment/process'] = "PaiementController/validerAchat"; // Procéder à un paiement
-$route['payment/notif'] = "PaiementController/paimentNotif";
+$route['payment/notif'] = "PaiementController/paimentSuccess";
 $route['payment/success'] = "PaiementController/paimentSuccess";
 $route['payment/echec'] = "PaiementController/paimentFailed";
 
