@@ -13,9 +13,7 @@ class Auth extends API_Controller
 	}
 	public function login()
 	{
-		header("Access-Control-Allow-Origin: *");
-		header("Access-Control-Allow-Methods: POST, GET");
-		header("Access-Control-Allow-Headers: Authorization, Content-Type");
+		N_LOG_WRITE(array("level"=>"[INFO]", "action"=>"user start login", "date"=>date('Y-m-d H:i:s')));
 		$this->_apiConfig([
 			'methods' => ['POST'],
 		]);
@@ -39,14 +37,15 @@ class Auth extends API_Controller
 				'role'=>$user[0]->role,
 				'photo' => $user[0]->photo,
 			];
-		$token = $this->authorization_token->generateToken($payload);
-		$this->output
-        ->set_content_type('application/json')
-        ->set_output(json_encode(array('status' => true,"data" => $token)));
-
-		//$this->api_return(array('status' => true,"data" => $token,),200);
-
+		  $token = $this->authorization_token->generateToken($payload);
+		// $this->output
+  //       ->set_content_type('application/json')
+  //       ->set_output(json_encode();
+		   N_LOG_WRITE(array("level"=>"[INFO]", "action"=>"user logged", "date"=>date('Y-m-d H:i:s'), "login"=> $user[0]->username));
+        	return HTTP_OK(array('status' => true,"data" => $token));
+        
 		} catch (Exception $e) {
+			N_LOG_WRITE(array("level"=>"[ERROR]", "action"=>"user login", "message"=>$e->getMessage(), "date"=>date('Y-m-d H:i:s')));
 			$this->api_return(['status' => false,"data" =>"Erreur interne au serveur!",],500);exit;
 		}
 	}

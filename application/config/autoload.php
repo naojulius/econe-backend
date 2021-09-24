@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'http', 'cors', 'apiauth');
+$autoload['helper'] = array('url', 'http', 'cors', 'apiauth', 'customlog');
 
 /*
 | -------------------------------------------------------------------
