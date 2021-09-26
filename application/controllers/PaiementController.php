@@ -42,8 +42,10 @@ class PaiementController extends API_Controller {
 			'requireAuthorization' => $this->requireAuthorization,
         ]);
 
-        // $this->AnnonceModel->updateAnnonceState("05D6CF0C-B058-FFA7-EFD6-F1748D1E8648" , "PAYED_NOT_EXPIRED");
-
+        // $this->RencontreModel->updateRencontreState("CF791C4D-86E5-1DCB-2F6C-81F49AC89FDCF2" , StateEnum::PAYED_NOT_EXPIRED);
+        // $this->AnnonceModel->updateAnnonceState("CF791C4D-86E5-1DCB-4F6C-81F49AC89FDC" , "PAYED_NOT_EXPIRED");
+        // $this->JobModel->updateJobState("7DCFB691-31E6-4878-F4C1-499A963EFA7D", "PAYED_NOT_EXPIRED");
+        
         $this->load->library('Util');
 		// $this->load->library('Paiement'); 05D6CF0C-B058-FFA7-EFD6-F1748D1E8648
 		// $tdes = new pHPTdes();
