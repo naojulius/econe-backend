@@ -68,7 +68,7 @@ class PaiementController extends API_Controller {
         log_message('debug', 'code_arn : ' . $code_arn, false);
         log_message('debug', 'nomPayeur : ' . $nomPayeur, false);
 
-        $idPanierArr = explode("-", $idPanier);
+        $idPanierArr = explode("_", $idPanier);
         $entity = $idPanierArr[0];
         $idEntity = $idPanierArr[1];
 

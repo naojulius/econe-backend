@@ -23,7 +23,7 @@ class Payment extends CI_Model
 
         $params = array("public_key"=>$cle_public, "private_key"=>$cle_prive, "client_id"=>$CLIENT_ID, "client_secret"=>$CLIENT_SECRET);
 
-        $idPanier = $dataPayment["entity_type"] . "-" . $dataPayment["entity_id"];
+        $idPanier = $dataPayment["entity_type"] . "_" . $dataPayment["entity_id"];
         $idReference = "REF" . $dataPayment["entity_type"] . $dataPayment["entity_id"];
         $montant = $dataPayment["montant"];
         $name = $dataPayment["name"];
