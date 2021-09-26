@@ -37,7 +37,7 @@ class Annonce extends API_Controller
 				foreach ($_FILES as $file) {
 					$files_ = $this->Files->upload($file, $imagePath);
 					$array_image = array(
-						"value"=> $files_[0],
+						"value"=> $files_,
 						"annonce_id"=> $annonce_id,
 
 					);
